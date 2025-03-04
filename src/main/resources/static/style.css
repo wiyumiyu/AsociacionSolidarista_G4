@@ -8,17 +8,35 @@
   font-family: "Inter", sans-serif;
 }
 body {
+
   background-color: #dbe2f4;
 }
-.container {
+.container2 {
+  position: fixed;
+  left: 256px;
   display: flex;
   align-items: center;
   width: 100%;
   min-height: 100vh;
 }
 
+
+.header {
+  position: fixed; /* Fija el sidebar en la pantalla */
+   top: 0;
+  left: 90px;
+  width: 100vmax;
+  height: 6.5vh;
+    display: grid;
+    grid-template-columns: 75% 25% ;     
+  background-color: white;
+   color: black; /* Para que el texto no sea blanco sobre blanco */
+}
+
 .sidebar {
-  position: relative;
+  position: fixed; /* Fija el sidebar en la pantalla */
+  left: 0; /* Lo deja pegado al borde izquierdo */
+  top: 0; /* Empieza desde arriba */
   width: 256px;
   height: 100vh;
   display: flex;
@@ -54,7 +72,7 @@ body {
   font-size: 14px;
   font-weight: 500;
 }
-.nav {
+.nav2 {
   flex: 1;
 }
 .menu ul li {

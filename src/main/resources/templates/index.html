@@ -9,12 +9,14 @@
     <!-- STYLESHEET -->
     <link rel="stylesheet" th:href="@{/style.css}" />
 
-    <title>Sidebar</title>
+    <title>Asobank</title>
   </head>
   
   
   <body>
     <div class="container">
+        
+      <!-- Contenedor Sidebar--> 
       <div class="sidebar">
         <div class="menu-btn">
           <i class="ph-bold ph-caret-left"></i>
@@ -30,7 +32,7 @@
             <ul>
               <li>
                 <a href="#">
-                  <i class="icon ph-bold ph-user"></i>
+                  <i class="icon ph-bold ph-chalkboard-teacher"></i>
                   <span class="text">Gestión</span>
                   <i class="arrow ph-bold ph-caret-down"></i>
                 </a>
@@ -54,19 +56,19 @@
               </li>
               <li>
                 <a href="#">
-                  <i class="icon ph-bold ph-calendar-blank"></i>
+                  <i class="icon ph-bold ph-piggy-bank"></i>
                   <span class="text">Ahorros</span>
                 </a>
               </li>
                             <li>
                 <a href="#">
-                  <i class="icon ph-bold ph-calendar-blank"></i>
+                  <i class="icon ph-bold ph-credit-card"></i>
                   <span class="text">Créditos</span>
                 </a>
               </li>
               <li>
                 <a href="#">
-                  <i class="icon ph-bold ph-calendar-blank"></i>
+                  <i class="icon ph-bold ph-hard-drives"></i>
                   <span class="text">Datos del sistema</span>
                 </a>
               </li>
@@ -94,11 +96,22 @@
           </ul>
         </div>
       </div>
+        
+      <!-- Contenedor principal Header-->
+      <div class="header">
+          <!-- Header -->
+          <header class="header">
+              <h1>Dashboard</h1>
+              <div class="user-info">
+                  <span>Bienvenido, Usuario</span>
+                  <i class="icon ph-bold ph-user-circle"></i>
+              </div>
+          </header>
+      </div>
+
+      <!-- Espacio principal -->
       <div class="Espacio">
-        <h1>
-          El resto <br />
-          de ventanas
-        </h1>
+          <h2>El resto <br /> de ventanas</h2>
       </div>
     </div>
 

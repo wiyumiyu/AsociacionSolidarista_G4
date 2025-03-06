@@ -1,7 +1,7 @@
 CREATE SCHEMA AsociacionSolidarista;
 USE AsociacionSolidarista;
 
-CREATE USER 'asosiacion'@'%' IDENTIFIED BY 'asosiacion123';
+/* CREATE USER 'asosiacion'@'%' IDENTIFIED BY 'asosiacion123'; */
 
 GRANT ALL PRIVILEGES ON AsociacionSolidarista.* to 'asosiacion'@'%';
 FLUSH PRIVILEGES;

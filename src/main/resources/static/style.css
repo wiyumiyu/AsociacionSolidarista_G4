@@ -17,6 +17,10 @@
   min-height: 100vh;
 }
 
+.contenido {
+    padding: 0px 0px 0px 256px;
+}
+
 .sidebar {
   position: fixed; /* Fija el sidebar en la pantalla */
   left: 0; /* Lo deja pegado al borde izquierdo */

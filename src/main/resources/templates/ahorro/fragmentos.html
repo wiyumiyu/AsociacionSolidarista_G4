@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>TechShop</title>
+    </head>
+    <body>
+
+
+
+
+        <!-- 3 Sección principal para mostrar la informaccion de la entidad categoria -->
+        <section th:fragment="listadoAhorroactivo" id="ahorro">
+            <div class="container">
+                <div class="row">
+                    <div >
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{ahorro.listado}]]</h4>
+                            </div>
+                            <div th:if="${ahorro != null and !ahorro.empty}">
+                                <table class="table">
+                                    <thead class="table-light">
+                                        <tr><th>#</th>
+                                            <th>[[#{ahorro.nombre}]]</th>
+                                            <th>[[#{ahorro.saldoActual}]]</th>
+                                            <th>[[#{ahorro.cuota}]]</th>
+                                            <th>[[#{ahorro.interesGenerado}]]</th>
+                                            <th>[[#{ahorro.tasaInteres}]]</th>
+                                            <th></th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="ahorro, contador : ${ahorro}">
+                                            <td>[[${ahorro.count}]]</td>
+                                            <td>[[${ahorro.nombre}]]</td>
+                                            <!-- <td th:text="${ahorro.activo} ? 'Activa' : 'Inactiva'" /> -->
+                                            <td><a th:href="@{/ahorro/eliminar/}+${ahorro.idAhorro}"
+                                                   class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
+                                                <a th:href="@{/ahorro/modificar/}+${ahorro.idAhorro}"
+                                                   class="btn btn-success">
+                                                    <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]</a></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-2" th:if="${ahorro == null or ahorro.empty}">
+                                <span>[[#{lista.vacia}]]</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="col-md-3">
+                        <div class="card text-center bg-success text-white mb-3">
+                            <div class="card-body">
+                                <h3>[[#{ahorro.total}]]</h3>
+                                <h4 class="fs-2"><i class="fas fa-users"></i> [[${totalAhorro}]]</h4>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </section>
+
+
+    </body>
+</html>

@@ -20,7 +20,7 @@
     </head>
 
     <body>
-        
+
         <header th:fragment="header" class="header">
             <div>
                 <ul class="nav justify-content-end">
@@ -33,7 +33,7 @@
                     </li>
                     <li class="nav-item">
                         <div class="imagen">
-                            <a href="#"> <img src="user.png" alt="Usuario" /> </a>
+                            <a href="#"> <img src="../images/user.png" alt="Usuario" /> </a>
                         </div>
                     </li>
                 </ul>
@@ -52,40 +52,23 @@
                 </div>
                 <div class="head">
                     <div class="logo-img">
-                        <img src="Logo.png" alt="" />
+                        <img src="../images/Logo.png" alt="" />
                     </div>
                 </div>
                 <div class="nav">
                     <div class="menu">
                         <p class="title">[[#{lateral.menu}]]</p>
                         <ul>
+
+                            <!-- <li th:classappend="${#httpServletRequest.requestURI == 'ahorro/listado'} ? 'active'"> -->
                             <li>
-                                <a href="#">
-                                    <i class="icon ph-bold ph-chalkboard-teacher"></i>
-                                    <span class="text">[[#{lateral.consultas}]]</span>
-                                    <i class="arrow ph-bold ph-caret-down"></i>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li>
-                                        <a href="#">
-                                            <span class="text">∘ [[#{lateral.estadoCuenta}]]</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="text">∘ [[#{lateral.calculoCuota}]]</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">
+                                <a  th:href="@{/ahorro/listado}">
                                     <i class="icon ph-bold ph-piggy-bank"></i>
                                     <span class="text">[[#{lateral.ahorros}]]</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a th:href="@{/credito/listado}">
                                     <i class="icon ph-bold ph-credit-card"></i>
                                     <span class="text">[[#{lateral.creditos}]]</span>
                                 </a>
@@ -122,8 +105,8 @@
             </div>
         </div>  
         <!-- FIN de Barra lateral-->   
-        
-        
+
+
     </body>
 </html>
 

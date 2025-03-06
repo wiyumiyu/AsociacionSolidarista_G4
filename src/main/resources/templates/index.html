@@ -4,9 +4,24 @@
   <head th:replace="layout/plantilla :: head">
   </head>
   <body>
-    <header th:replace="layout/plantilla :: header"></header> 
-    <div th:replace="layout/plantilla :: barraLateral"></div>
-    <p class="contenido">Esto es un elemento de encabezado</p>
+      <header th:replace="layout/plantilla :: header"></header> 
+      <div th:replace="layout/plantilla :: barraLateral"></div>
+      
+      
+      
+      <div class="contenido">
+          
+          
+          <ul class="nav nav-tabs">
+              <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">[[#{tab.ahorro}]]</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">[[#{tab.prestamo}]]</a>
+              </li>
+          </ul>
+      </div>
+    
     
     
     <!-- Jquery -->

@@ -18,7 +18,7 @@
 }
 
 .contenido {
-    padding: 0px 0px 0px 256px;
+    padding: 25px 50px 0px 256px;
 }
 
 .sidebar {
@@ -38,7 +38,6 @@
   display: flex;
   gap: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #f6f6f6;
 }
 .logo-img {
   width: 100px;
@@ -88,6 +87,24 @@
 .nav2 {
   flex: 1;
 }
+
+.nav-link.dropdown-toggle:hover {
+    color: #9A4C1E !important; /* Cambia el color cuando el cursor está encima */
+}
+
+.nav-tabs .nav-link {
+    color: #757575 !important; /* Color de pestañas inactivas */
+    background-color: transparent; /* Fondo transparente para mantener el diseño de Bootstrap */
+    border-color: transparent;
+}
+
+.nav-tabs .nav-link.active {
+    color: #9A4C1E !important; /* Color de la pestaña activa */
+    background-color: #757575; /* Opcional: cambia el fondo si lo deseas */
+    border-color: #9A4C1E; /* Opcional: cambia el borde para resaltar la pestaña activa */
+    font-weight: 500;
+}
+
 .menu ul li {
   position: relative;
   list-style: none;
@@ -110,6 +127,7 @@
   color: #FFF;
   background-color: #9A4C1E;
 }
+
 .menu ul li .icon {
   font-size: 20px;
 }

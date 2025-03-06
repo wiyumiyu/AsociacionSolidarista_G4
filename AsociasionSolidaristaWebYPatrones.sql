@@ -7,8 +7,6 @@ GRANT ALL PRIVILEGES ON AsociacionSolidarista.* to 'asosiacion'@'%';
 FLUSH PRIVILEGES;
 
 
-
-
 CREATE TABLE Usuario (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     contrasena VARCHAR(255) NOT NULL,
@@ -85,6 +83,11 @@ CREATE TABLE Ahorro (
     deletedAt TIMESTAMP NULL,
     FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
 );
+
+insert into ahorro 
+(id_usuario, nombre, saldo_actual, cuota, interes_generado, tasa_interes) values
+(1, "prueba", 1, 2,3, 4 );
+
 
 CREATE TABLE Retiro (
     id_retiro INT PRIMARY KEY AUTO_INCREMENT NOT NULL,

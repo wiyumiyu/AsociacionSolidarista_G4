@@ -33,7 +33,10 @@
                                     <tbody>
                                         <tr th:each="ahorro, contador : ${ahorro}">
                                             <td>[[${ahorro.count}]]</td>
-                                            <td>[[${ahorro.nombre}]]</td>
+                                            <td>[[${ahorro.saldo_actual}]]</td>
+                                            <td>[[${ahorro.cuota}]]</td>
+                                            <td>[[${ahorro.interes_generado}]]</td>
+                                            <td>[[${ahorro.tasa_interes}]]</td>
                                             <!-- <td th:text="${ahorro.activo} ? 'Activa' : 'Inactiva'" /> -->
                                             <td><a th:href="@{/ahorro/eliminar/}+${ahorro.idAhorro}"
                                                    class="btn btn-danger">

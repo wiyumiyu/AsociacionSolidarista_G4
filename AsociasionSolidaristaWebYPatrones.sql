@@ -1,7 +1,9 @@
+drop database AsociacionSolidarista;
+
 CREATE SCHEMA AsociacionSolidarista;
 USE AsociacionSolidarista;
-
-CREATE USER 'asociacion'@'%' IDENTIFIED BY 'asociacion123';
+/* asociacion'@'%' to database 'asociacionsolidarista'] [n/a] */
+/*CREATE USER 'asociacion'@'%' IDENTIFIED BY 'asociacion123';*/
 
 GRANT ALL PRIVILEGES ON AsociacionSolidarista.* TO 'asociacion'@'%';
 FLUSH PRIVILEGES;

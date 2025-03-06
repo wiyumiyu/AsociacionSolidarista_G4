@@ -17,9 +17,9 @@ CREATE TABLE usuario (
     cedula VARCHAR(50) UNIQUE NOT NULL,    
 	fecha_nacimiento DATE NOT NULL,
     tipo_usuario tinyint(1) NOT NULL,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
-    deletedAt TIMESTAMP NULL
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL
 );
 
 insert INTO usuario
@@ -35,9 +35,9 @@ CREATE TABLE usuario_detalle (
     profesion VARCHAR(100) NOT NULL,
     salario_bruto DOUBLE NOT NULL,
     empresa VARCHAR(100) NOT NULL,
-	createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
-    deletedAt TIMESTAMP NULL,   
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,   
 	FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)    
 );
 
@@ -52,9 +52,9 @@ CREATE TABLE credito (
     tasa DOUBLE NOT NULL,
     estado INT NOT NULL, 
     fecha_aprobacion DATE NOT NULL,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
-    deletedAt TIMESTAMP NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 
@@ -63,9 +63,9 @@ CREATE TABLE aportecredito (
     id_credito INT NOT NULL,
     monto DOUBLE NOT NULL,
     fecha DATE NOT NULL,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
-    deletedAt TIMESTAMP NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
     FOREIGN KEY (id_credito) REFERENCES credito(id_credito)
 );
 
@@ -77,9 +77,9 @@ CREATE TABLE ahorro (
     cuota DOUBLE NOT NULL,
     interes_generado DOUBLE NOT NULL,
     tasa_interes DOUBLE NOT NULL,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
-    deletedAt TIMESTAMP NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 
@@ -92,9 +92,9 @@ CREATE TABLE retiro (
     id_retiro INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     id_ahorro INT NOT NULL,
     monto DOUBLE NOT NULL,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
-    deletedAt TIMESTAMP NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
     FOREIGN KEY (id_ahorro) REFERENCES ahorro(id_ahorro)
 );
 
@@ -102,9 +102,9 @@ CREATE TABLE aporteahorro (
     id_aporte INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     id_ahorro INT NOT NULL,
     monto DOUBLE NOT NULL, 
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
-    deletedAt TIMESTAMP NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
     FOREIGN KEY (id_ahorro) REFERENCES ahorro(id_ahorro)
 );
 
@@ -115,9 +115,9 @@ CREATE TABLE beneficiario (
     cedula VARCHAR(50) NOT NULL,
     parentesco VARCHAR(100) NOT NULL,
     porcentaje_beneficiario DOUBLE NOT NULL,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
-    deletedAt TIMESTAMP NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 

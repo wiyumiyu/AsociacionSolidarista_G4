@@ -30,8 +30,8 @@ public class Beneficiario implements Serializable{
     public Beneficiario(){
     }
 
-    public Beneficiario(Long id_usuario, String nombre, String cedula, String parentesco, double porcentajeBeneficiario, DateTime createdAt, DateTime updatedAt, DateTime deletedAt) {
-        this.id_usuario = id_usuario;
+    public Beneficiario(Long idUsuario, String nombre, String cedula, String parentesco, double porcentajeBeneficiario, DateTime createdAt, DateTime updatedAt, DateTime deletedAt) {
+        this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.cedula = cedula;
         this.parentesco = parentesco;

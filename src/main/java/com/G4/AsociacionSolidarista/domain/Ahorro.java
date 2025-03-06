@@ -19,7 +19,7 @@ public class Ahorro implements Serializable{
     private Long idAhorro; // lo interpreta como id_ahorro automaticamente
     private Long id_usuario; // lo interpreta como id_ahorro automaticamente
     private String nombre;
-    private String saldo_actual;
+    private long saldo_actual;
     private Long cuota;
     private Long interes_generado;
     private Long tasa_interes;
@@ -28,7 +28,7 @@ public class Ahorro implements Serializable{
     public Ahorro(){
     }
 
-    public Ahorro(Long id_usuario, String nombre, String saldo_actual, Long cuota, Long interes_generado, Long tasa_interes) {
+    public Ahorro(Long id_usuario, String nombre, Long saldo_actual, Long cuota, Long interes_generado, Long tasa_interes) {
         this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.saldo_actual = saldo_actual;

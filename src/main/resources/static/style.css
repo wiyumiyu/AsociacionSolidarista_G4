@@ -7,10 +7,7 @@
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
 }
-body {
 
-  background-color: #dbe2f4;
-}
 .container2 {
   position: fixed;
   left: 256px;
@@ -18,19 +15,6 @@ body {
   align-items: center;
   width: 100%;
   min-height: 100vh;
-}
-
-
-.header {
-  position: fixed; /* Fija el sidebar en la pantalla */
-   top: 0;
-  left: 90px;
-  width: 100vmax;
-  height: 6.5vh;
-    display: grid;
-    grid-template-columns: 75% 25% ;     
-  background-color: white;
-   color: black; /* Para que el texto no sea blanco sobre blanco */
 }
 
 .sidebar {
@@ -72,6 +56,31 @@ body {
   font-size: 14px;
   font-weight: 500;
 }
+.header a{
+    color: #757575; 
+}
+
+.header {
+    padding: 12px 10px;
+    border: 1px solid #f6f6f6;
+    height: 80px; /* Ajusta según necesidad */
+    align-items: center; /* Centra verticalmente el contenido */
+}
+
+.imagen {
+    padding: 0px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imagen img {
+    height: 40px; /* Ajusta el tamaño de la imagen */
+    width: 40px; /* Asegura que sea cuadrada */
+    border-radius: 50%; /* Hace que la imagen sea completamente redonda */
+    object-fit: cover; /* Mantiene la proporción sin deformarla */
+}
+
 .nav2 {
   flex: 1;
 }

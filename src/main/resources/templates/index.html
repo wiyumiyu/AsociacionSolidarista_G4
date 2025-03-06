@@ -1,21 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- ICONS -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <!-- STYLESHEET -->
-    <link rel="stylesheet" th:href="@{/style.css}" />
-    
-    <title>Asobank</title>
+  <head th:replace="layout/plantilla :: head">
   </head>
-  
-  
   <body>
-      
     <header th:replace="layout/plantilla :: header"></header> 
     <div th:replace="layout/plantilla :: barraLateral"></div>
 

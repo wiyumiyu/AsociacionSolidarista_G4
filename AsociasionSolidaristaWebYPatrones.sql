@@ -6,6 +6,9 @@ CREATE USER 'asosiacion'@'%' IDENTIFIED BY 'asosiacion123';
 GRANT ALL PRIVILEGES ON AsociacionSolidarista.* to 'asosiacion'@'%';
 FLUSH PRIVILEGES;
 
+
+
+
 CREATE TABLE Usuario (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     contrasena VARCHAR(255) NOT NULL,
@@ -16,11 +19,16 @@ CREATE TABLE Usuario (
     email VARCHAR(100) NOT NULL,    
     cedula VARCHAR(50) UNIQUE NOT NULL,    
 	fecha_nacimiento DATE NOT NULL,
-    tipo_usuario tinyint(1),
+    tipo_usuario tinyint(1) NOT NULL,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
     deletedAt TIMESTAMP NULL
 );
+
+insert INTO Usuario
+(contrasena, nombre, direccion, genero, telefono, email, cedula, fecha_nacimiento, tipo_usuario) values 
+("m", "Mariana T.", "", "Femenino", "88223366", "mariana@gmail.com" , "101110222","2000-01-01",  1);
+
 
 /*Detalles del usuario que no son administradores */
 CREATE TABLE Usuario_detalle (
@@ -50,7 +58,7 @@ CREATE TABLE Credito (
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
     deletedAt TIMESTAMP NULL,
-    FOREIGN KEY (id_usuario) REFERENCES Asociado(id_usuario)
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
 );
 
 CREATE TABLE AporteCredito (
@@ -75,7 +83,7 @@ CREATE TABLE Ahorro (
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
     deletedAt TIMESTAMP NULL,
-    FOREIGN KEY (id_usuario) REFERENCES Asociado(id_usuario)
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
 );
 
 CREATE TABLE Retiro (
@@ -108,6 +116,6 @@ CREATE TABLE Beneficiario (
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
     deletedAt TIMESTAMP NULL,
-    FOREIGN KEY (id_usuario) REFERENCES Asociado(id_usuario)
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
 );
 

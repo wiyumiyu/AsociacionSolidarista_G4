@@ -7,11 +7,26 @@
     </head>
     <body>
 
-
+        <!-- 1 Sección para crear el boton de agregar... llamará a una ventana modal-->
+        <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">   
+                        <button 
+                            type="button" 
+                            class="btn btn-primary btn-block" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#agregarCategoria">
+                            <i class="fas fa-plus"></i> [[#{categoria.agregar}]]
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
 
 
         <!-- 3 Sección principal para mostrar la informaccion de la entidad categoria -->
-        <section th:fragment="listadoAhorrosactivo" id="ahorros">
+        <section th:fragment="listadoAhorrosactivo"  id="ahorros">
             <div class="container">
                 <div class="row">
                     <div >

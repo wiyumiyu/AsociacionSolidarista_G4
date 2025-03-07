@@ -19,7 +19,7 @@ public class Ahorro implements Serializable{
     private Long idAhorro; // lo interpreta como id_ahorro automaticamente
     private Long idUsuario; // lo interpreta como id_ahorro automaticamente
     private String nombre;
-    private long saldoActual;
+    private Long saldoActual;
     private Long cuota;
     private Long interesGenerado;
     private Long tasaInteres;

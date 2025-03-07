@@ -1,67 +1,71 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-    <head th:replace="~{layout/plantilla :: head}">
-         <title>Asobank</title>
-    </head>
-    <body>
-        <!-- 3 Sección principal para mostrar la informaccion de la entidad categoria -->
-        <section th:fragment="listadoAhorrosactivo" id="ahorros">
-            <div class="container">
-                <div class="row">
-                    <div >
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>[[#{ahorro.listado}]]</h4>
-                            </div>
-                            <div th:if="${ahorros != null and !ahorros.empty}">
-                                <table class="table">
-                                    <thead class="table-light">
-                                        <tr><th>#</th>
-                                            <th>[[#{ahorro.nombre}]]</th>
-                                            <th>[[#{ahorro.saldoActual}]]</th>
-                                            <th>[[#{ahorro.cuota}]]</th>
-                                            <th>[[#{ahorro.interesGenerado}]]</th>
-                                            <th>[[#{ahorro.tasaInteres}]]</th>
-                                            <th></th></tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:each="ahorro, contador : ${ahorros}">
-                                            <td>[[${contador.count}]]</td>
-                                            <td>[[${ahorro.saldo_actual}]]</td>
-                                            <td>[[${ahorro.cuota}]]</td>
-                                            <td>[[${ahorro.interes_generado}]]</td>
-                                            <td>[[${ahorro.tasa_interes}]]</td>
-                                            <!-- <td th:text="${ahorro.activo} ? 'Activa' : 'Inactiva'" /> -->
-                                            <td><a th:href="@{/ahorro/eliminar/}+${ahorro.idAhorro}"
-                                                   class="btn btn-danger">
-                                                    <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
-                                                <a th:href="@{/ahorro/modificar/}+${ahorro.idAhorro}"
-                                                   class="btn btn-success">
-                                                    <i class="fas fa-pencil"></i> [[#{accion.editar}]]</a></td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="text-center p-2" th:if="${ahorros == null or ahorros.empty}">
-                                <span>[[#{lista.vacia}]]</span>
-                            </div>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:replace="~{layout/plantilla :: head}">
+    <title>Asobank</title>
+</head>
+
+<body>
+    <!-- 3 Sección principal para mostrar la informaccion de la entidad categoria -->
+    <section th:fragment="listadoBeneficiariosActivo" id="beneficiarios">
+        <div class="container">
+            <div class="row">
+                <div>
+                    <div class="card">
+                        <div th:if="${beneficiarios != null and !beneficiarios.empty}">
+                            <table class="table">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>[[#{beneficiario.usuario}]]</th>
+                                        <th>[[#{beneficiario.nombre}]]</th>
+                                        <th>[[#{beneficiario.cedula}]]</th>
+                                        <th>[[#{beneficiario.parentesco}]]</th>
+                                        <th>[[#{beneficiario.porcentajeBeneficiario}]]</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="beneficiario, contador : ${beneficiarios}">
+                                        <td>[[${contador.count}]]</td>
+                                        <td>[[${beneficiario.idUsuario}]]</td>
+                                        <td>[[${beneficiario.nombre}]]</td>
+                                        <td>[[${beneficiario.cedula}]]</td>
+                                        <td>[[${beneficiario.parentesco}]]</td>
+                                        <td>[[${beneficiario.porcentajeBeneficiario}]]</td>
+                                        <td th:text="${beneficiario.deletedAt} ? 'Inactivo' : 'Activo'" />
+                                        <td><a th:href="@{/beneficiario/eliminar/}+${beneficiario.idBeneficiario}" class="btn btn-danger">
+                                                <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
+                                            <a th:href="@{/beneficiario/modificar/}+${beneficiario.idBeneficiario}"
+                                                class="btn btn-success">
+                                                <i class="fas fa-pencil"></i> [[#{accion.editar}]]</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center p-2" th:if="${beneficiarios == null or beneficiarios.empty}">
+                            <span>[[#{lista.vacia}]]</span>
                         </div>
                     </div>
-                    <!--
+                </div>
+                <!--
                     <div class="col-md-3">
                         <div class="card text-center bg-success text-white mb-3">
                             <div class="card-body">
-                                <h3>[[#{ahorro.total}]]</h3>
-                                <h4 class="fs-2"><i class="fas fa-users"></i> [[${totalAhorro}]]</h4>
+                                <h3>[[#{beneficiario.total}]]</h3>
+                                <h4 class="fs-2"><i class="fas fa-users"></i> [[${totalBeneficiario}]]</h4>
                             </div>
                         </div>
                     </div>
                     -->
-                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
 
-    </body>
+</body>
+
 </html>

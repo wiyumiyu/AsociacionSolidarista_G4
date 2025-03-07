@@ -1,9 +1,9 @@
 package com.G4.AsociacionSolidarista.domain;
 
-import com.google.api.client.util.DateTime;
 import lombok.Data;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 
 
@@ -23,14 +23,14 @@ public class Beneficiario implements Serializable{
     private String cedula;
     private String parentesco;
     private double porcentajeBeneficiario;
-    private DateTime createdAt;
-    private DateTime updatedAt;
-    private DateTime deletedAt;
+    private LocalDateTime  createdAt;
+    private LocalDateTime  updatedAt;
+    private LocalDateTime  deletedAt;
 
     public Beneficiario(){
     }
 
-    public Beneficiario(Long idUsuario, String nombre, String cedula, String parentesco, double porcentajeBeneficiario, DateTime createdAt, DateTime updatedAt, DateTime deletedAt) {
+    public Beneficiario(Long idUsuario, String nombre, String cedula, String parentesco, double porcentajeBeneficiario, LocalDateTime  createdAt, LocalDateTime  updatedAt, LocalDateTime  deletedAt) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.cedula = cedula;

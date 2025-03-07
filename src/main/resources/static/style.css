@@ -256,3 +256,8 @@
   text-align: center;
   font-size: 3rem;
 }
+
+.d-flex-center{
+  display: flex;
+  justify-content: center;
+}

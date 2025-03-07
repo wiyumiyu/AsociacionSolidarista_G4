@@ -9,7 +9,7 @@
 <body>
     <!-- 3 Sección principal para mostrar la informaccion de la entidad categoria -->
     <section th:fragment="listadoBeneficiariosActivo" id="beneficiarios">
-        <div class="container">
+        <div class="contenido">
             <div class="row">
                 <div>
                     <div class="card">
@@ -18,13 +18,13 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>#</th>
-                                        <th>[[#{beneficiario.usuario}]]</th>
-                                        <th>[[#{beneficiario.nombre}]]</th>
-                                        <th>[[#{beneficiario.cedula}]]</th>
-                                        <th>[[#{beneficiario.parentesco}]]</th>
-                                        <th>[[#{beneficiario.porcentajeBeneficiario}]]</th>
-                                        <th></th>
-                                        <th></th>
+                                        <th>[[#{mp.beneficiario.usuario}]]</th>
+                                        <th>[[#{mp.beneficiario.nombre}]]</th>
+                                        <th>[[#{mp.beneficiario.cedula}]]</th>
+                                        <th>[[#{mp.beneficiario.parentesco}]]</th>
+                                        <th>[[#{mp.beneficiario.porcentajeBeneficiario}]]</th>
+                                        <th>[[#{mp.beneficiario.estado}]]</th>
+                                        <th>[[#{mp.beneficiario.acciones}]]</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -36,35 +36,145 @@
                                         <td>[[${beneficiario.parentesco}]]</td>
                                         <td>[[${beneficiario.porcentajeBeneficiario}]]</td>
                                         <td th:text="${beneficiario.deletedAt} ? 'Inactivo' : 'Activo'" />
-                                        <td><a th:href="@{/beneficiario/eliminar/}+${beneficiario.idBeneficiario}" class="btn btn-danger">
-                                                <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
+                                        <td><a th:href="@{/beneficiario/eliminar/}+${beneficiario.idBeneficiario}"
+                                                class="btn btn-danger">
+                                                <i class="fas fa-trash"></i> [[#{mp.accion.eliminar}]]</a>
                                             <a th:href="@{/beneficiario/modificar/}+${beneficiario.idBeneficiario}"
                                                 class="btn btn-success">
-                                                <i class="fas fa-pencil"></i> [[#{accion.editar}]]</a>
+                                                <i class="fas fa-pencil"></i> [[#{mp.accion.editar}]]</a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div class="text-center p-2" th:if="${beneficiarios == null or beneficiarios.empty}">
-                            <span>[[#{lista.vacia}]]</span>
+                            <span>[[#{mp.lista.vacia}]]</span>
                         </div>
                     </div>
                 </div>
-                <!--
-                    <div class="col-md-3">
-                        <div class="card text-center bg-success text-white mb-3">
-                            <div class="card-body">
-                                <h3>[[#{beneficiario.total}]]</h3>
-                                <h4 class="fs-2"><i class="fas fa-users"></i> [[${totalBeneficiario}]]</h4>
-                            </div>
-                        </div>
-                    </div>
-                    -->
             </div>
         </div>
     </section>
 
+    <!-- Modal de agregar beneficiario -->
+    <section th:fragment="agregarBeneficiario">
+        <div id="agregarBeneficiario" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title">[[#{mp.beneficiario.agregar}]]</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form th:action="@{/beneficiario/guardar}" th:object="${beneficiario}" method="POST" class="was-validated"
+                        enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="idUsuario">[[#{mp.beneficiario.usuario}]]</label>
+                                <input type="number" class="form-control" name="idUsuario" id="idUsuario"
+                                    required="true" />
+                                <div id="erroridUsuario" class="text-danger mt-2" style="display: none;">
+                                    Por favor, ingrese un número válido.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nombre">[[#{mp.beneficiario.nombre}]]</label>
+                                <input type="text" class="form-control" name="nombre" required="true" maxlength="100" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="cedula">[[#{mp.beneficiario.cedula}]]</label>
+                                <input type="text" class="form-control" name="cedula" id="cedula"
+                                    required="true" /> 
+                            </div>
+                            <div class="mb-3">
+                                <label for="parentesco">[[#{mp.beneficiario.parentesco}]]</label>
+                                <input type="text" class="form-control" name="parentesco" id="parentesco" required="true" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="porcentajeBeneficiario">[[#{mp.beneficiario.porcentajeBeneficiario}]]</label>
+                                <input type="number" class="form-control" name="porcentajeBeneficiario" id="porcentajeBeneficiario"
+                                    required="true" />
+                                <div id="errorporcentajeBeneficiario" class="text-danger mt-2" style="display: none;">
+                                    Por favor, ingrese un número válido.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit">[[#{mp.accion.guardar}]]</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agregar -->
+    <section th:fragment="botonesAgregar">
+        <div class="contenidoTitulo" style="padding-left: 300px;">
+            <div class="container d-flex justify-content-between align-items-center">
+                <span class="fs-2" style="color: #757575;">[[#{mp.beneficiario.listado}]]</span>
+                <button type="button" class="btn text-white" style="background-color: #6A1039" data-bs-toggle="modal"
+                    data-bs-target="#agregarBeneficiario">
+                    <i class="fas fa-plus"></i> Agregar
+                </button>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Modificar Beneficiario -->
+    <section th:fragment="editarBeneficiario">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <form method="POST" th:action="@{/beneficiario/guardar}" th:object="${beneficiario}"
+                    class="was-validated" enctype="multipart/form-data">
+                    <input type="hidden" name="idBeneficiario" th:field="*{idBeneficiario}" />
+                    <div id=details>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>[[#{mp.accion.editar}]]</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <input type="hidden" class="form-control" name="idUsuario" id="idUsuario"
+                                                th:field="*{idUsuario}" required="true" />
+                                            <div class="mb-3">
+                                                <label for="nombre">[[#{mp.beneficiario.nombre}]]</label>
+                                                <input type="text" class="form-control" name="nombre" id="nombre"
+                                                th:field="*{nombre}" required="true" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="cedula">[[#{mp.beneficiario.cedula}]]</label>
+                                                <input type="text" class="form-control" name="cedula" required="true"
+                                                th:field="*{cedula}" maxlength="15" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="parentesco">[[#{mp.beneficiario.parentesco}]]</label>
+                                                <input type="text" class="form-control" name="parentesco"
+                                                th:field="*{parentesco}" id="parentesco" required="true" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label
+                                                    for="porcentajeBeneficiario">[[#{mp.beneficiario.porcentajeBeneficiario}]]</label>
+                                                <input type="number" class="form-control" name="porcentajeBeneficiario"
+                                                th:field="*{porcentajeBeneficiario}" id="porcentajeBeneficiario" required="true" />
+                                            </div>
+                                            <div class="d-flex-center">
+                                                <button type="submit" class="btn btn-success">
+                                                    <i class="fas fa-check"></i> [[#{mp.accion.guardar}]]
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </section>
 
 </body>
 

@@ -7,6 +7,7 @@
     </head>
     <body>
 
+
         <!-- 1 Sección para crear el boton de agregar... llamará a una ventana modal-->
         <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
             <div class="container">
@@ -17,13 +18,12 @@
                             class="btn btn-primary btn-block" 
                             data-bs-toggle="modal" 
                             data-bs-target="#agregarCategoria">
-                            <i class="fas fa-plus"></i> [[#{categoria.agregar}]]
+                            <i class="fas fa-plus"></i> [[#{mp.ahorro.agregar}]]
                         </button>
                     </div>
                 </div>
             </div>
         </section>
-
 
         <!-- 3 Sección principal para mostrar la informaccion de la entidad categoria -->
         <section th:fragment="listadoAhorrosactivo"  id="ahorros">
@@ -32,38 +32,38 @@
                     <div >
                         <div class="card">
                             <div class="card-header">
-                                <h4>[[#{ahorro.listado}]]</h4>
+                                <h4>[[#{mp.ahorro.listado}]]</h4>
                             </div>
                             <div th:if="${ahorros != null and !ahorros.empty}">
                                 <table class="table">
                                     <thead class="table-light">
                                         <tr><th>#</th>
-                                            <th>[[#{ahorro.nombre}]]</th>
-                                            <th>[[#{ahorro.saldoActual}]]</th>
-                                            <th>[[#{ahorro.cuota}]]</th>
-                                            <th>[[#{ahorro.interesGenerado}]]</th>
-                                            <th>[[#{ahorro.tasaInteres}]]</th>
+                                            <th>[[#{mp.ahorro.nombre}]]</th>
+                                            <th>[[#{mp.ahorro.saldoActual}]]</th>
+                                            <th>[[#{mp.ahorro.cuota}]]</th>
+                                            <th>[[#{mp.ahorro.interesGenerado}]]</th>
+                                            <th>[[#{mp.ahorro.tasaInteres}]]</th>
                                             <th></th></tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="ahorro, contador : ${ahorros}">
                                             <td>[[${contador.count}]]</td>
-                                            <td>[[${ahorro.saldo_actual}]]</td>
+                                            <td>[[${ahorro.saldoActual}]]</td>
                                             <td>[[${ahorro.cuota}]]</td>
-                                            <td>[[${ahorro.interes_generado}]]</td>
-                                            <td>[[${ahorro.tasa_interes}]]</td>
+                                            <td>[[${ahorro.interesGenerado}]]</td>
+                                            <td>[[${ahorro.tasaInteres}]]</td>
                                             <!-- <td th:text="${ahorro.activo} ? 'Activa' : 'Inactiva'" /> -->
                                             <td><a th:href="@{/ahorro/eliminar/}+${ahorro.idAhorro}"
                                                    class="btn btn-danger">
-                                                    <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
+                                                    <i class="fas fa-trash"></i> [[#{mp.accion.eliminar}]]</a>
                                                 <a th:href="@{/ahorro/modificar/}+${ahorro.idAhorro}"
                                                    class="btn btn-success">
-                                                    <i class="fas fa-pencil"></i> [[#{accion.editar}]]</a></td></tr>
+                                                    <i class="fas fa-pencil"></i> [[#{mp.accion.editar}]]</a></td></tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="text-center p-2" th:if="${ahorros == null or ahorros.empty}">
-                                <span>[[#{lista.vacia}]]</span>
+                                <span>[[#{mp.lista.vacia}]]</span>
                             </div>
                         </div>
                     </div>

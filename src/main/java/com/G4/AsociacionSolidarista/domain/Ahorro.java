@@ -17,26 +17,24 @@ public class Ahorro implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_ahorro") 
     private Long idAhorro; // lo interpreta como id_ahorro automaticamente
-    private Long id_usuario; // lo interpreta como id_ahorro automaticamente
+    private Long idUsuario; // lo interpreta como id_ahorro automaticamente
     private String nombre;
-    private long saldo_actual;
+    private long saldoActual;
     private Long cuota;
-    private Long interes_generado;
-    private Long tasa_interes;
+    private Long interesGenerado;
+    private Long tasaInteres;
     
     
     public Ahorro(){
     }
 
-    public Ahorro(Long id_usuario, String nombre, Long saldo_actual, Long cuota, Long interes_generado, Long tasa_interes) {
-        this.id_usuario = id_usuario;
+    public Ahorro(Long idUsuario, String nombre, long saldoActual, Long cuota, Long interesGenerado, Long tasaInteres) {
+        this.idUsuario = idUsuario;
         this.nombre = nombre;
-        this.saldo_actual = saldo_actual;
+        this.saldoActual = saldoActual;
         this.cuota = cuota;
-        this.interes_generado = interes_generado;
-        this.tasa_interes = tasa_interes;
+        this.interesGenerado = interesGenerado;
+        this.tasaInteres = tasaInteres;
     }
-    
-    
 
 }

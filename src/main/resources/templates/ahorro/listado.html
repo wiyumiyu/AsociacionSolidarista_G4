@@ -10,11 +10,9 @@
     <header th:replace="layout/plantilla :: header"></header>
     <div th:replace="layout/plantilla :: barraLateral"></div>
 
+    <section th:replace="ahorro/fragmentos :: botonesAgregar" />
 
-
-    <div class="contenido">
-
-
+    <div class="contenidoTabs">
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">[[#{mp.tab.ahorroactivo}]]</a>
@@ -26,10 +24,9 @@
             </li>
         </ul>
     </div>
-
-    <section th:replace="ahorro/fragmentos :: botonesAgregar" />
     
     <section th:replace="ahorro/fragmentos :: listadoAhorrosactivo" />
+    <section th:replace="ahorro/fragmentos :: agregarAhorro" />
 
 
 

@@ -18,7 +18,15 @@
 }
 
 .contenido {
-    padding: 25px 50px 0px 256px;
+    padding: 40px 50px 0px 300px;
+}
+
+.contenidoTabs {
+    padding: 10px 50px 0px 300px;
+}
+
+.contenidoTitulo {
+    padding: 20px ;
 }
 
 .sidebar {

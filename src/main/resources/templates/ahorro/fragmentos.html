@@ -3,80 +3,204 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{layout/plantilla :: head}">
-         <title>Asobank</title>
+        <title>Asobank</title>
     </head>
     <body>
 
 
         <!-- 1 Sección para crear el boton de agregar... llamará a una ventana modal-->
-        <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3">   
-                        <button 
-                            type="button" 
-                            class="btn btn-primary btn-block" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#agregarCategoria">
-                            <i class="fas fa-plus"></i> [[#{mp.ahorro.agregar}]]
-                        </button>
+        <!-- Sección para crear el botón de agregar y texto alineado a la izquierda -->
+        <section th:fragment="botonesAgregar">
+            <div class="contenidoTitulo">
+                <div class="container d-flex justify-content-between align-items-center">
+                    <span class="fs-2" style="color: #757575;">[[#{mp.ahorro.listado}]]</span> <!-- fs-4 para aumentar tamaño del texto -->
+                    <button 
+                        type="button" 
+                        class="btn text-white" 
+                        style="background-color: #6A1039" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#agregarAhorro">
+                        <i class="fas fa-plus"></i> Agregar
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 3 Sección principal para mostrar la informaccion de la entidad ahorro -->
+        <section th:fragment="listadoAhorrosactivo"  id="ahorros">
+            <div class="contenido">
+                <div th:if="${ahorros != null and !ahorros.empty}">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>[[#{mp.ahorro.nombre}]]</th>
+                                <th>[[#{mp.ahorro.saldoActual}]]</th>
+                                <th>[[#{mp.ahorro.cuota}]]</th>
+                                <th>[[#{mp.ahorro.interesGenerado}]]</th>
+                                <th>[[#{mp.ahorro.tasaInteres}]]</th>
+                                <th></th></tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="ahorro, contador : ${ahorros}">
+                                <td>[[${contador.count}]]</td>
+                                <td>[[${ahorro.nombre}]]</td>                        
+                                <td>[[${ahorro.saldoActual}]]</td>
+                                <td>[[${ahorro.cuota}]]</td>
+                                <td>[[${ahorro.interesGenerado}]]</td>
+                                <td>[[${ahorro.tasaInteres}]]</td>
+                                <!-- <td th:text="${ahorro.activo} ? 'Activa' : 'Inactiva'" /> -->
+                                <td><a th:href="@{/ahorro/eliminar/}+${ahorro.idAhorro}"
+                                       class="btn text-white" style="background-color: #A4613A">
+                                        <i class="fas fa-trash"></i></a>
+                                    <a th:href="@{/ahorro/modificar/}+${ahorro.idAhorro}"
+                                       class="btn text-white" style="background-color: #313C61">
+                                        <i class="fas fa-pencil"></i></a></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center p-2" th:if="${ahorros == null or ahorros.empty}">
+                    <span>[[#{mp.lista.vacia}]]</span>
+                </div>
+            </div>
+        </section>
+        
+
+        <section th:fragment="agregarAhorro">
+            <div id="agregarAhorro" 
+                 class="modal fade" 
+                 tabindex="-1" 
+                 aria-labelledby="exampleModalLabel" 
+                 aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info text-white">
+                            <h5 class="modal-title">[[#{ahorro.agregar}]]</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div> 
+                        <form th:action="@{/ahorro/guardar}" th:object="${ahorro}"
+                              method="POST" class="was-validated" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="idUsuario">Usuario</label>
+                                    <input type="number" class="form-control" name="idUsuario" id="idUsuario" required="true" />
+                                    <div id="erroridUsuario" class="text-danger mt-2" style="display: none;">
+                                        Por favor, ingrese un número válido.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nombre">[[#{mp.ahorro.nombre}]]</label>
+                                    <input type="text" class="form-control" name="nombre" required="true" maxlength="100"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="saldoActual">[[#{mp.ahorro.montoNuevo}]]</label>
+                                    <input type="number" class="form-control" name="saldoActual" id="saldoActual" required="true" />
+                                    <div id="errorsaldoActual" class="text-danger mt-2" style="display: none;">
+                                        Por favor, ingrese un número válido.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cuota">[[#{mp.ahorro.cuota}]]</label>
+                                    <input type="number" class="form-control" name="cuota" id="cuota" required="true" />
+                                    <div id="errorcuota" class="text-danger mt-2" style="display: none;">
+                                        Por favor, ingrese un número válido.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="interesGenerado">[[#{mp.ahorro.interesGenerado}]]</label>
+                                    <input type="number" class="form-control" name="interesGenerado" id="interesGenerado" required="true" />
+                                    <div id="errorinteresGenerado" class="text-danger mt-2" style="display: none;">
+                                        Por favor, ingrese un número válido.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tasaInteres">[[#{mp.ahorro.tasaInteres}]]</label>
+                                    <input type="number" class="form-control" name="tasaInteres" id="tasaInteres" required="true" />
+                                    <div id="errortasaInteres" class="text-danger mt-2" style="display: none;">
+                                        Por favor, ingrese un número válido.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 3 Sección principal para mostrar la informaccion de la entidad categoria -->
-        <section th:fragment="listadoAhorrosactivo"  id="ahorros">
-            <div class="container">
-                <div class="row">
-                    <div >
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>[[#{mp.ahorro.listado}]]</h4>
+        <section th:fragment="editarAhorro">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form method="POST"
+                          th:action="@{/ahorro/guardar}" 
+                          th:object="${ahorro}"
+                          class="was-validated"                          
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="idAhorro" th:field="*{idAhorro}"/>
+                        <div id=details>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>[[#{accion.actualizar}]]</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mb-3">
+                                                    <label for="idUsuario">Usuario</label>
+                                                    <input type="number" class="form-control" name="idUsuario" id="idUsuario" required="true" />
+                                                    <div id="erroridUsuario" class="text-danger mt-2" style="display: none;">
+                                                        Por favor, ingrese un número válido.
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="nombre">[[#{mp.ahorro.nombre}]]</label>
+                                                    <input type="text" class="form-control" name="nombre" required="true" maxlength="100"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="saldoActual">[[#{mp.ahorro.montoNuevo}]]</label>
+                                                    <input type="number" class="form-control" name="saldoActual" id="saldoActual" required="true" />
+                                                    <div id="errorsaldoActual" class="text-danger mt-2" style="display: none;">
+                                                        Por favor, ingrese un número válido.
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="cuota">[[#{mp.ahorro.cuota}]]</label>
+                                                    <input type="number" class="form-control" name="cuota" id="cuota" required="true" />
+                                                    <div id="errorcuota" class="text-danger mt-2" style="display: none;">
+                                                        Por favor, ingrese un número válido.
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="interesGenerado">[[#{mp.ahorro.interesGenerado}]]</label>
+                                                    <input type="number" class="form-control" name="interesGenerado" id="interesGenerado" required="true" />
+                                                    <div id="errorinteresGenerado" class="text-danger mt-2" style="display: none;">
+                                                        Por favor, ingrese un número válido.
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="tasaInteres">[[#{mp.ahorro.tasaInteres}]]</label>
+                                                    <input type="number" class="form-control" name="tasaInteres" id="tasaInteres" required="true" />
+                                                    <div id="errortasaInteres" class="text-danger mt-2" style="display: none;">
+                                                        Por favor, ingrese un número válido.
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4 d-grid">
+                                                    <button type="submit" class="btn btn-success">
+                                                        <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div th:if="${ahorros != null and !ahorros.empty}">
-                                <table class="table">
-                                    <thead class="table-light">
-                                        <tr><th>#</th>
-                                            <th>[[#{mp.ahorro.nombre}]]</th>
-                                            <th>[[#{mp.ahorro.saldoActual}]]</th>
-                                            <th>[[#{mp.ahorro.cuota}]]</th>
-                                            <th>[[#{mp.ahorro.interesGenerado}]]</th>
-                                            <th>[[#{mp.ahorro.tasaInteres}]]</th>
-                                            <th></th></tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:each="ahorro, contador : ${ahorros}">
-                                            <td>[[${contador.count}]]</td>
-                                            <td>[[${ahorro.saldoActual}]]</td>
-                                            <td>[[${ahorro.cuota}]]</td>
-                                            <td>[[${ahorro.interesGenerado}]]</td>
-                                            <td>[[${ahorro.tasaInteres}]]</td>
-                                            <!-- <td th:text="${ahorro.activo} ? 'Activa' : 'Inactiva'" /> -->
-                                            <td><a th:href="@{/ahorro/eliminar/}+${ahorro.idAhorro}"
-                                                   class="btn btn-danger">
-                                                    <i class="fas fa-trash"></i> [[#{mp.accion.eliminar}]]</a>
-                                                <a th:href="@{/ahorro/modificar/}+${ahorro.idAhorro}"
-                                                   class="btn btn-success">
-                                                    <i class="fas fa-pencil"></i> [[#{mp.accion.editar}]]</a></td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="text-center p-2" th:if="${ahorros == null or ahorros.empty}">
-                                <span>[[#{mp.lista.vacia}]]</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!--
-                    <div class="col-md-3">
-                        <div class="card text-center bg-success text-white mb-3">
-                            <div class="card-body">
-                                <h3>[[#{ahorro.total}]]</h3>
-                                <h4 class="fs-2"><i class="fas fa-users"></i> [[${totalAhorro}]]</h4>
-                            </div>
-                        </div>
-                    </div>
-                    -->
+                    </form>
                 </div>
             </div>
         </section>

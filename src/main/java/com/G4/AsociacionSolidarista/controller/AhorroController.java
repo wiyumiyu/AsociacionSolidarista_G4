@@ -31,33 +31,24 @@ public class AhorroController {
      
         return "/ahorro/listado";
     }
-//    
-//    @PostMapping("/guardar")
-//    public String categoriaGuardar(Categoria categoria,
-//            @RequestParam("imagenFile") MultipartFile imagenFile) {        
-//        if (!imagenFile.isEmpty()) {
-//            categoriaService.save(categoria);
-//            categoria.setRutaImagen(
-//                    firebaseStorageService.cargaImagen(
-//                            imagenFile, 
-//                            "categoria", 
-//                            categoria.getIdCategoria()));
-//        }
-//        categoriaService.save(categoria);
-//        return "redirect:/categoria/listado";
-//    }
-//
-//    @GetMapping("/eliminar/{idCategoria}")
-//    public String categoriaEliminar(Categoria categoria) {
-//        categoriaService.delete(categoria);
-//        return "redirect:/categoria/listado";
-//    }
-//
-//    @GetMapping("/modificar/{idCategoria}")
-//    public String categoriaModificar(Categoria categoria, Model model) {
-//        categoria = categoriaService.getCategoria(categoria);
-//        model.addAttribute("categoria", categoria);
-//        return "/categoria/modifica";
-//    }    
+    
+    @PostMapping("/guardar")
+    public String ahorroGuardar(Ahorro ahorro) {        
+        ahorroService.save(ahorro);
+        return "redirect:/ahorro/listado";
+    }
+
+    @GetMapping("/eliminar/{idAhorro}")
+    public String ahorroEliminar(Ahorro ahorro) {
+        ahorroService.delete(ahorro);
+        return "redirect:/ahorro/listado";
+    }
+
+    @GetMapping("/modificar/{idAhorro}")
+    public String ahorroModificar(Ahorro ahorro, Model model) {
+        ahorro = ahorroService.getAhorro(ahorro);
+        model.addAttribute("ahorro", ahorro);
+        return "/ahorro/modifica";
+    }    
 
 }

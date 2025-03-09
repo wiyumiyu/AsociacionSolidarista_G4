@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class IndexController {
-     @GetMapping("/")
+    @GetMapping("/")
     public String home() {
         return "index"; // Redirige a index.html en templates
     }

@@ -18,6 +18,10 @@ public class BackofficeController {
     
     // Controlador requerido para gestionar todas las funcionalidades del backoffice del sistema
     
+    // backoffice/users/
+    // backoffice/users/save
+    // backoffice/users/delete
+    
     @RequestMapping("/users")
     public String page(Model model) {
         model.addAttribute("attribute", "value");

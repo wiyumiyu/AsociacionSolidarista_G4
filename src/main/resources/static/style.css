@@ -78,14 +78,14 @@
     align-items: center; /* Centra verticalmente el contenido */
 }
 
-.imagen {
+.foto-perfil {
     padding: 0px 30px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.imagen img {
+.foto-perfil img {
     height: 40px; /* Ajusta el tamaño de la imagen */
     width: 40px; /* Asegura que sea cuadrada */
     border-radius: 50%; /* Hace que la imagen sea completamente redonda */

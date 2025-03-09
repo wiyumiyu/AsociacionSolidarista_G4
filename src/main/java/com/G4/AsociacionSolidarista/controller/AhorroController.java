@@ -1,4 +1,3 @@
-
 package com.G4.AsociacionSolidarista.controller;
 
 import com.G4.AsociacionSolidarista.domain.Ahorro;
@@ -22,18 +21,27 @@ public class AhorroController {
 
     @Autowired
     private FirebaseStorageServiceImpl firebaseStorageService;
-    
+
     @RequestMapping("/listado")
     public String page(Model model) {
         var ahorros = ahorroService.getAhorros(false);
         model.addAttribute("ahorros", ahorros);
         model.addAttribute("totalAhorros", ahorros.size());
-     
+
         return "/ahorro/listado";
     }
-    
+
+    @RequestMapping("/historial")
+    public String historial(Model model) {
+        var ahorros = ahorroService.getAhorros(false);
+        model.addAttribute("ahorros", ahorros);
+        model.addAttribute("totalAhorros", ahorros.size());
+
+        return "/ahorro/listado";
+    }
+
     @PostMapping("/guardar")
-    public String ahorroGuardar(Ahorro ahorro) {        
+    public String ahorroGuardar(Ahorro ahorro) {
         ahorroService.save(ahorro);
         return "redirect:/ahorro/listado";
     }
@@ -49,6 +57,6 @@ public class AhorroController {
         ahorro = ahorroService.getAhorro(ahorro);
         model.addAttribute("ahorro", ahorro);
         return "/ahorro/modifica";
-    }    
+    }
 
 }

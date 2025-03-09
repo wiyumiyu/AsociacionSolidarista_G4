@@ -23,6 +23,9 @@ public class Ahorro implements Serializable{
     private Long cuota;
     private Long interesGenerado;
     private Long tasaInteres;
+    private String createdAt;
+    private String updatedAt;
+    private String deletedAt;
     
     
     public Ahorro(){

@@ -18,9 +18,12 @@ public class AhorroServiceImpl implements AhorroService {
     @Transactional(readOnly = true)
     public List<Ahorro> getAhorros(boolean activos) {
         var lista = ahorroDao.findAll();
-//        if (activos) {
-//            lista.removeIf(e -> !e.isActivo());
-//        }
+        if (activos) {
+            lista.removeIf(e -> e.getDeletedAt() != null);
+        }
+        if (!activos) {
+            lista.removeIf(e -> e.getDeletedAt() == null);
+        }
         return lista;
     }
 

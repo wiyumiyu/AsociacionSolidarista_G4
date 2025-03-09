@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.G4.AsociacionSolidarista.service.AhorroService;
 import com.G4.AsociacionSolidarista.service.impl.FirebaseStorageServiceImpl;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +26,7 @@ public class AhorroController {
 
     @RequestMapping("/listado")
     public String page(Model model) {
-        var ahorros = ahorroService.getAhorros(false);
+        var ahorros = ahorroService.getAhorros(true);
         model.addAttribute("ahorros", ahorros);
         model.addAttribute("totalAhorros", ahorros.size());
 
@@ -37,7 +39,7 @@ public class AhorroController {
         model.addAttribute("ahorros", ahorros);
         model.addAttribute("totalAhorros", ahorros.size());
 
-        return "/ahorro/listado";
+        return "/ahorro/historial";
     }
 
     @PostMapping("/guardar")
@@ -59,4 +61,18 @@ public class AhorroController {
         return "/ahorro/modifica";
     }
 
+    @GetMapping("/liquidar/{idAhorro}")
+    public String ahorroLiquidar(Ahorro ahorro, Model model) {
+        ahorro = ahorroService.getAhorro(ahorro);
+        //cambiar saldo a 0
+        ahorro.setSaldoActual((long) 0);
+        //borrado lógico
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+        ahorro.setDeletedAt(timestamp.toString());
+        
+        ahorroService.save(ahorro);
+        
+        model.addAttribute("ahorro", ahorro);
+        return "redirect:/ahorro/historial";
+    }
 }

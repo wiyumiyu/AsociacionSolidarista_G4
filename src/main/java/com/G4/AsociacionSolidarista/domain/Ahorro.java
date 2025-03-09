@@ -31,13 +31,16 @@ public class Ahorro implements Serializable{
     public Ahorro(){
     }
 
-    public Ahorro(Long idUsuario, String nombre, long saldoActual, Long cuota, Long interesGenerado, Long tasaInteres) {
+    public Ahorro(Long idUsuario, String nombre, long saldoActual, Long cuota, Long interesGenerado, Long tasaInteres, String createdAt, String updatedAt, String deletedAt) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.saldoActual = saldoActual;
         this.cuota = cuota;
         this.interesGenerado = interesGenerado;
         this.tasaInteres = tasaInteres;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
     }
 
 }

@@ -2,39 +2,37 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="layout/plantilla :: head">
-    <title>Asobank</title>
-</head>
+    <head th:replace="layout/plantilla :: head">
+        <title>Asobank</title>
+    </head>
 
-<body>
-    <header th:replace="layout/plantilla :: header"></header>
-    <div th:replace="layout/plantilla :: barraLateral"></div>
+    <body>
+        <header th:replace="layout/plantilla :: header"></header>
+        <div th:replace="layout/plantilla :: barraLateral"></div>
 
-    <section th:replace="ahorro/fragmentos :: botonesAgregar" />
+        <section th:replace="ahorro/fragmentos :: botonesAgregar" />
 
-    <div class="contenidoTabs">
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">[[#{mp.tab.ahorroactivo}]]</a>
-            </li>
-            <li class="nav-item">
+        <div class="contenidoTabs">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/ahorro/listado}">[[#{mp.tab.ahorroactivo}]]</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/ahorro/historial}">[[#{mp.tab.ahorrohistorial}]]</a>
+                </li>
+            </ul>
+        </div>
 
-                <a class="nav-link" href="#">[[#{mp.tab.ahorrohistorial}]]</a>
-                <!-- <a class="nav-link" th:href="@{/credito/listado}">[[#{tab.ahorrohistorial}]]</a> -->
-            </li>
-        </ul>
-    </div>
-    
-    <section th:replace="ahorro/fragmentos :: listadoAhorrosactivo" />
-    <section th:replace="ahorro/fragmentos :: agregarAhorro" />
+        <section th:replace="ahorro/fragmentos :: listadoAhorrosActivo" />
+        <section th:replace="ahorro/fragmentos :: agregarAhorro" />
 
 
 
-    <!-- Jquery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
-        integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
+        <!-- Jquery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
+                integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
         crossorigin="anonymous"></script>
-    <script src="script.js"></script>
-</body>
+        <script src="script.js"></script>
+    </body>
 
 </html>

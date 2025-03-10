@@ -94,9 +94,17 @@
                         <form th:action="@{/ahorro/guardar}" th:object="${ahorro}"
                               method="POST" class="was-validated" enctype="multipart/form-data">
                             <div class="modal-body">
-                                
-                                <input type="hidden" class="form-control" name="idUsuario" id="idUsuario" />
-                                    
+
+                                <!--<input type="hidden" class="form-control" name="idUsuario" id="idUsuario" />-->
+                                <div class="mb-3">
+                                    <label for="idUsuario">[[#{mp.beneficiario.usuario}]]</label>
+                                    <input type="number" class="form-control" name="idUsuario" id="idUsuario"
+                                           required="true" />
+                                    <div id="erroridUsuario" class="text-danger mt-2" style="display: none;">
+                                        Por favor, ingrese un número válido.
+                                    </div>
+                                </div>
+
                                 <div class="mb-3">
                                     <label for="nombre">[[#{mp.ahorro.nombre}]]</label>
                                     <input type="text" class="form-control" name="nombre" required="true" maxlength="100"/>

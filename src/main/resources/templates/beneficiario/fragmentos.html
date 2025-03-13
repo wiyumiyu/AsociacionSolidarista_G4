@@ -36,12 +36,13 @@
                                         <td>[[${beneficiario.parentesco}]]</td>
                                         <td>[[${beneficiario.porcentajeBeneficiario}]]</td>
                                         <td th:text="${beneficiario.deletedAt} ? 'Inactivo' : 'Activo'" />
-                                        <td><a th:href="@{/beneficiario/eliminar/}+${beneficiario.idBeneficiario}"
-                                                class="btn btn-danger">
-                                                <i class="fas fa-trash"></i> [[#{mp.accion.eliminar}]]</a>
+                                        <td>
+                                            <a th:href="@{/beneficiario/eliminar/}+${beneficiario.idBeneficiario}"
+                                                class="btn text-white" style="background-color: #A4613A">
+                                                <i class="fas fa-trash"></i></a>
                                             <a th:href="@{/beneficiario/modificar/}+${beneficiario.idBeneficiario}"
-                                                class="btn btn-success">
-                                                <i class="fas fa-pencil"></i> [[#{mp.accion.editar}]]</a>
+                                                class="btn text-white" style="background-color: #313C61">
+                                                <i class="fas fa-pencil"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -58,15 +59,16 @@
 
     <!-- Modal de agregar beneficiario -->
     <section th:fragment="agregarBeneficiario">
-        <div id="agregarBeneficiario" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div id="agregarBeneficiario" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <div class="modal-header bg-info text-white">
                         <h5 class="modal-title">[[#{mp.beneficiario.agregar}]]</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form th:action="@{/beneficiario/guardar}" th:object="${beneficiario}" method="POST" class="was-validated"
-                        enctype="multipart/form-data">
+                    <form th:action="@{/beneficiario/guardar}" th:object="${beneficiario}" method="POST"
+                        class="was-validated" enctype="multipart/form-data">
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="idUsuario">[[#{mp.beneficiario.usuario}]]</label>
@@ -82,17 +84,18 @@
                             </div>
                             <div class="mb-3">
                                 <label for="cedula">[[#{mp.beneficiario.cedula}]]</label>
-                                <input type="text" class="form-control" name="cedula" id="cedula"
-                                    required="true" /> 
+                                <input type="text" class="form-control" name="cedula" id="cedula" required="true" />
                             </div>
                             <div class="mb-3">
                                 <label for="parentesco">[[#{mp.beneficiario.parentesco}]]</label>
-                                <input type="text" class="form-control" name="parentesco" id="parentesco" required="true" />
+                                <input type="text" class="form-control" name="parentesco" id="parentesco"
+                                    required="true" />
                             </div>
                             <div class="mb-3">
-                                <label for="porcentajeBeneficiario">[[#{mp.beneficiario.porcentajeBeneficiario}]]</label>
-                                <input type="number" class="form-control" name="porcentajeBeneficiario" id="porcentajeBeneficiario"
-                                    required="true" />
+                                <label
+                                    for="porcentajeBeneficiario">[[#{mp.beneficiario.porcentajeBeneficiario}]]</label>
+                                <input type="number" class="form-control" name="porcentajeBeneficiario"
+                                    id="porcentajeBeneficiario" required="true" />
                                 <div id="errorporcentajeBeneficiario" class="text-danger mt-2" style="display: none;">
                                     Por favor, ingrese un número válido.
                                 </div>
@@ -134,8 +137,11 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="card">
-                                        <div class="card-header">
-                                            <h4>[[#{mp.accion.editar}]]</h4>
+                                        <div class="card-header d-flex align-items-center gap-3">
+                                            <a th:title='Volver' th:href="@{/beneficiario/listado}" style="background-color: #6A1039;" class="btn d-block text-white">
+                                                <i class="fa-solid fa-arrow-left"></i>
+                                            </a>
+                                            <h4 class="my-0">[[#{mp.accion.editar}]]</h4>
                                         </div>
                                         <div class="card-body">
                                             <input type="hidden" class="form-control" name="idUsuario" id="idUsuario"
@@ -143,26 +149,27 @@
                                             <div class="mb-3">
                                                 <label for="nombre">[[#{mp.beneficiario.nombre}]]</label>
                                                 <input type="text" class="form-control" name="nombre" id="nombre"
-                                                th:field="*{nombre}" required="true" />
+                                                    th:field="*{nombre}" required="true" />
                                             </div>
                                             <div class="mb-3">
                                                 <label for="cedula">[[#{mp.beneficiario.cedula}]]</label>
                                                 <input type="text" class="form-control" name="cedula" required="true"
-                                                th:field="*{cedula}" maxlength="15" />
+                                                    th:field="*{cedula}" maxlength="15" />
                                             </div>
                                             <div class="mb-3">
                                                 <label for="parentesco">[[#{mp.beneficiario.parentesco}]]</label>
                                                 <input type="text" class="form-control" name="parentesco"
-                                                th:field="*{parentesco}" id="parentesco" required="true" />
+                                                    th:field="*{parentesco}" id="parentesco" required="true" />
                                             </div>
                                             <div class="mb-3">
                                                 <label
                                                     for="porcentajeBeneficiario">[[#{mp.beneficiario.porcentajeBeneficiario}]]</label>
                                                 <input type="number" class="form-control" name="porcentajeBeneficiario"
-                                                th:field="*{porcentajeBeneficiario}" id="porcentajeBeneficiario" required="true" />
+                                                    th:field="*{porcentajeBeneficiario}" id="porcentajeBeneficiario"
+                                                    required="true" />
                                             </div>
                                             <div class="d-flex-center">
-                                                <button type="submit" class="btn btn-success">
+                                                <button type="submit" style="background-color: #6A1039;" class="btn btn-success w-100">
                                                     <i class="fas fa-check"></i> [[#{mp.accion.guardar}]]
                                                 </button>
                                             </div>

@@ -23,6 +23,12 @@ public class BeneficiarioServiceImpl implements BeneficiarioService {
         }
         return lista;
     }
+    
+    @Override
+    @Transactional
+    public List<Beneficiario> getBeneficiariosByIdUsuario(Long idUsuario) {
+        return beneficiarioDao.findByIdUsuario(idUsuario); 
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -40,12 +46,6 @@ public class BeneficiarioServiceImpl implements BeneficiarioService {
     @Transactional
     public void delete(Beneficiario beneficiario) {
         beneficiarioDao.deleteById(beneficiario.getIdBeneficiario());
-    }
-
-    @Override
-    @Transactional
-    public List<Beneficiario> getBeneficiariosByIdUsuario(Long idUsuario) {
-        return beneficiarioDao.findByIdUsuario(idUsuario); 
-    }
+    } 
 
 }

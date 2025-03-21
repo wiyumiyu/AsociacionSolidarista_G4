@@ -26,6 +26,14 @@ public class AhorroServiceImpl implements AhorroService {
         }
         return lista;
     }
+    
+    @Override
+    @Transactional
+    public List<Ahorro> getAhorrosByIdUsuario(Long idUsuario) {
+        
+        var lista = ahorroDao.findByIdUsuario(idUsuario); 
+        return lista;
+    }
 
     @Override
     @Transactional(readOnly = true)

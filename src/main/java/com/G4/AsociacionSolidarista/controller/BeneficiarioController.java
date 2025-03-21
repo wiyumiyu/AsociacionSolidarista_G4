@@ -27,6 +27,14 @@ public class BeneficiarioController {
         model.addAttribute("beneficiarios", beneficiarios);
         return "/beneficiario/listado";
     }
+
+    @GetMapping("/listado/{idUsuario}")
+    public String getBeneficiariosByUsuario(@PathVariable Long idUsuario, Model model) {
+        
+        List<Beneficiario> beneficiarios = beneficiarioService.getBeneficiariosByIdUsuario(idUsuario);
+        model.addAttribute("beneficiarios", beneficiarios);
+        return "/beneficiario/listado";
+    }  
     
     @PostMapping("/guardar")
     public String beneficiarioGuardar(Beneficiario beneficiario) {        
@@ -45,13 +53,5 @@ public class BeneficiarioController {
         beneficiario = beneficiarioService.getBeneficiario(beneficiario);
         model.addAttribute("beneficiario", beneficiario);
         return "/beneficiario/modifica";
-    }  
-    
-    @GetMapping("/listado/{idUsuario}")
-    public String getBeneficiariosByUsuario(@PathVariable Long idUsuario, Model model) {
-        
-        List<Beneficiario> beneficiarios = beneficiarioService.getBeneficiariosByIdUsuario(idUsuario);
-        model.addAttribute("beneficiarios", beneficiarios);
-        return "/beneficiario/listado";
     }   
 }

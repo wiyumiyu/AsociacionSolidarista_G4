@@ -31,9 +31,8 @@ public class IndexController {
     @RequestMapping("/")
     public String index(Model model, HttpSession session) {
 
-        Usuario usuario  = (Usuario) session.getAttribute("usuario");
-        model.addAttribute("idUsuario", usuario.getIdUsuario());
-        model.addAttribute("usuario", usuario);
+        //model.addAttribute("attribute", "value");
+        Long idUsuario  = (Long)session.getAttribute("idUsuario");
 
 
         return "index";

@@ -15,7 +15,8 @@
         <div class="contenidoTabs">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/ahorro/listado}">[[#{mp.tab.ahorroactivo}]]</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/ahorro/listado}" sec:authorize="hasRole('ROLE_ADMIN')">[[#{mp.tab.ahorroactivo}]]</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/ahorro/listado/{idUsuario}(idUsuario=${session.idUsuario})}" sec:authorize="hasRole('ROLE_CLIENT') && !hasRole('ROLE_ADMIN')">[[#{mp.tab.ahorroactivo}]]</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/ahorro/historial}">[[#{mp.tab.ahorrohistorial}]]</a>

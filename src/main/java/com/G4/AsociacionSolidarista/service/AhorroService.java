@@ -9,6 +9,9 @@ public interface AhorroService  {
     // Se obtiene un listado de ahorros en un List
     public List<Ahorro> getAhorros(boolean activos);
     
+    //get ahorros por cliente
+    public List<Ahorro> getAhorrosByIdUsuario(Long idUsuario);
+    
    // Se obtiene un Ahorro, a partir del id de un ahorro
     public Ahorro getAhorro(Ahorro ahorro);
     

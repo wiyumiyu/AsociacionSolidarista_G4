@@ -8,8 +8,12 @@ import com.G4.AsociacionSolidarista.service.AhorroService;
 import com.G4.AsociacionSolidarista.service.impl.FirebaseStorageServiceImpl;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +37,15 @@ public class AhorroController {
         return "/ahorro/listado";
     }
 
+    @GetMapping("/listado/{idUsuario}")
+    public String getAhorrosByUsuario(@PathVariable Long idUsuario, Model model) {
+        
+        List<Ahorro> ahorros = ahorroService.getAhorrosByIdUsuario(idUsuario);
+        model.addAttribute("ahorros", ahorros);
+        model.addAttribute("totalAhorros", ahorros.size());
+        return "/ahorro/listado";
+    }  
+
     @RequestMapping("/historial")
     public String historial(Model model) {
         var ahorros = ahorroService.getAhorros(false);
@@ -44,6 +57,8 @@ public class AhorroController {
 
     @PostMapping("/guardar")
     public String ahorroGuardar(Ahorro ahorro) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        ahorro.setCreatedAt(LocalDateTime.now().format(formatter));
         ahorroService.save(ahorro);
         return "redirect:/ahorro/listado";
     }

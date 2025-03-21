@@ -56,7 +56,7 @@
                             <td>[[${ahorro.cuota}]]</td>
                             <td>[[${ahorro.interesGenerado}]]</td>
                             <td>[[${ahorro.tasaInteres}]]%</td>
-                            <td th:text="${ahorro.createdAt.substring(0, 10)}"></td>
+                            <td th:text="${ahorro.createdAt != null ? ahorro.createdAt.substring(0,10) : ''}"></td>
                             <td sec:authorize="hasRole('ROLE_ADMIN')">
                                 <a th:href="@{/ahorro/eliminar/}+${ahorro.idAhorro}" class="btn text-white"
                                     style="background-color: #A4613A">

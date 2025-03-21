@@ -13,19 +13,43 @@ CREATE TABLE usuario (
     direccion VARCHAR(100) NOT NULL,
     genero VARCHAR(10) NOT NULL,
     telefono VARCHAR(20) NOT NULL,
-    email VARCHAR(100) NOT NULL,    
+    username VARCHAR(100) NOT NULL,    
     cedula VARCHAR(50) UNIQUE NOT NULL,    
 	fecha_nacimiento DATE NOT NULL,
-    tipo_usuario tinyint(1) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP NULL
 );
+#drop table usuario;
+#drop table rol;
+#drop table ahorro;
+#drop table aporteahorro;
+#drop table retiro;
+#drop table beneficiario;
+#drop table usuario_detalle;
+#drop table credito;
+#drop table aportecredito;
 
 insert INTO usuario
-(contrasena, nombre, direccion, genero, telefono, email, cedula, fecha_nacimiento, tipo_usuario) values 
-("m", "Mariana T.", "", "Femenino", "88223366", "mariana@gmail.com" , "101110222","2000-01-01",  1);
+(contrasena, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
+("m", "Mariana T.", "", "Femenino", "88223366", "mariana@gmail.com" , "101110222","2000-01-01");
+insert INTO usuario
+(contrasena, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
+("v", "Julio Rodríguez", "", "Masculino", "88223366", "vjuliorc@gmail.com" , "1111111","2000-01-01");
 
+CREATE TABLE `rol` (
+  `id_rol` int PRIMARY KEY AUTO_INCREMENT,
+  `nombre` varchar(20) DEFAULT NULL,
+  `id_usuario` int DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+	deleted_at TIMESTAMP NULL,  
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)  
+  
+) ;
+
+insert into rol (nombre, id_usuario) values ("ROLE_ADMIN", 1);
+insert into rol (nombre, id_usuario) values ("ROLE_ADMIN", 2);
 
 /*Detalles del usuario que no son administradores */
 CREATE TABLE usuario_detalle (

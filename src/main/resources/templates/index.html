@@ -1,44 +1,25 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="layout/plantilla :: head"> <title>Asobank</title></head>
-    <body>
-        <header th:replace="layout/plantilla :: header"></header> 
 
-        <div class="container mt-5">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="card p-5">
-                        <div class="text-center">
-                            <img class="" src="../images/Logo.png" alt="Asobank Logo" />
-                        </div>
-                        <div class="card-body mt-4">
-                            <form th:action="@{/login}" method="post">
-                                <div class="mb-4">
-                                    <label for="email" class="form-label">[[#{mp.login.correo}]]</label>
-                                    <input type="email" class="form-control" id="email" name="email" required >
-                                </div>
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">[[#{mp.login.clave}]]</label>
-                                    <input type="password" class="form-control" id="password" name="password" required>
-                                </div>
-                                <button type="submit" style="background-color: #6A1039" class="btn text-white w-100 mt-5">[[#{mp.login.button}]]</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="layout/plantilla :: head">
+        <title>Asobank</title>
+    </head>
+
+    <body>
+        <header th:replace="layout/plantilla :: header"></header>
+        <div th:replace="layout/plantilla :: barraLateral"></div>
+
+
+
 
         <!-- Jquery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
                 integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
         crossorigin="anonymous"></script>
-        <script src="script.js"></script> 
-        <style>.foto-perfil {
-            display: none
-        }</style>
+        <script src="script.js"></script>
     </body>
+
 </html>
 
 

@@ -32,10 +32,14 @@ CREATE TABLE usuario (
 
 insert INTO usuario
 (contrasena, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
-("m", "Mariana T.", "", "Femenino", "88223366", "mariana@gmail.com" , "101110222","2000-01-01");
+("$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.", "Mariana T.", "", "Femenino", "88223366", "mariana@gmail.com" , "101110222","2000-01-01");
 insert INTO usuario
 (contrasena, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
-("v", "Julio Rodríguez", "", "Masculino", "88223366", "vjuliorc@gmail.com" , "1111111","2000-01-01");
+("$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.", "Julio Rodríguez", "", "Masculino", "88223366", "vjuliorc@gmail.com" , "1111111","2000-01-01");
+
+insert INTO usuario
+(contrasena, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
+("$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.", "Isaac Ruiz", "Cartago", "Masculino", "88222266", "isaac@gmail.com" , "3333333","2004-03-02");
 
 CREATE TABLE `rol` (
   `id_rol` int PRIMARY KEY AUTO_INCREMENT,
@@ -50,6 +54,8 @@ CREATE TABLE `rol` (
 
 insert into rol (nombre, id_usuario) values ("ROLE_ADMIN", 1);
 insert into rol (nombre, id_usuario) values ("ROLE_ADMIN", 2);
+insert into rol (nombre, id_usuario) values ("ROLE_CLIENT", 3);
+
 
 /*Detalles del usuario que no son administradores */
 CREATE TABLE usuario_detalle (

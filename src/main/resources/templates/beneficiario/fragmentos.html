@@ -24,7 +24,7 @@
                                         <th>[[#{mp.beneficiario.parentesco}]]</th>
                                         <th>[[#{mp.beneficiario.porcentajeBeneficiario}]]</th>
                                         <th>[[#{mp.beneficiario.estado}]]</th>
-                                        <th>[[#{mp.beneficiario.acciones}]]</th>
+                                        <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{mp.beneficiario.acciones}]]</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -36,7 +36,7 @@
                                         <td>[[${beneficiario.parentesco}]]</td>
                                         <td>[[${beneficiario.porcentajeBeneficiario}]]</td>
                                         <td th:text="${beneficiario.deletedAt} ? 'Inactivo' : 'Activo'" />
-                                        <td>
+                                        <td sec:authorize="hasRole('ROLE_ADMIN')">
                                             <a th:href="@{/beneficiario/eliminar/}+${beneficiario.idBeneficiario}"
                                                 class="btn text-white" style="background-color: #A4613A">
                                                 <i class="fas fa-trash"></i></a>
@@ -112,7 +112,7 @@
 
     <!-- Agregar -->
     <section th:fragment="botonesAgregar">
-        <div class="contenidoTitulo" style="padding-left: 300px;">
+        <div class="contenidoTitulo" style="padding-left: 300px;" sec:authorize="hasRole('ROLE_ADMIN')">
             <div class="container d-flex justify-content-between align-items-center">
                 <span class="fs-2" style="color: #757575;">[[#{mp.beneficiario.listado}]]</span>
                 <button type="button" class="btn text-white" style="background-color: #6A1039" data-bs-toggle="modal"

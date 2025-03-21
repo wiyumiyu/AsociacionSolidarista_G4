@@ -18,4 +18,8 @@ public interface BeneficiarioService  {
     
     // Se elimina el beneficiario que tiene el id pasado por parámetro
     public void delete(Beneficiario beneficiario);    
+    
+    //get beneficiarios por cliente
+    public List<Beneficiario> getBeneficiariosByIdUsuario(Long idUsuario);
+
 }

@@ -1,5 +1,6 @@
 package com.G4.AsociacionSolidarista.controller;
 
+import com.G4.AsociacionSolidarista.domain.Usuario;
 import jakarta.servlet.http.HttpSession;
 //import java.util.Map;
 import org.springframework.stereotype.Controller;
@@ -29,8 +30,12 @@ public class IndexController {
    
     @RequestMapping("/")
     public String index(Model model, HttpSession session) {
-        //model.addAttribute("attribute", "value");
-        Long idUsuario  = (Long)session.getAttribute("idUsuario");
+
+        Usuario usuario  = (Usuario) session.getAttribute("usuario");
+        model.addAttribute("idUsuario", usuario.getIdUsuario());
+        model.addAttribute("usuario", usuario);
+
+
         return "index";
     } 
     

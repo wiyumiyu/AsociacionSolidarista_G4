@@ -20,7 +20,7 @@ public class BeneficiarioServiceImpl implements BeneficiarioService {
         var lista = beneficiarioDao.findAll();
         if (activos) {
             lista.removeIf(b -> b.getDeletedAt() != null);
-       }
+        }
         return lista;
     }
 
@@ -40,6 +40,12 @@ public class BeneficiarioServiceImpl implements BeneficiarioService {
     @Transactional
     public void delete(Beneficiario beneficiario) {
         beneficiarioDao.deleteById(beneficiario.getIdBeneficiario());
+    }
+
+    @Override
+    @Transactional
+    public List<Beneficiario> getBeneficiariosByIdUsuario(Long idUsuario) {
+        return beneficiarioDao.findByIdUsuario(idUsuario); 
     }
 
 }

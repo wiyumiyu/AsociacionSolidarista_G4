@@ -26,6 +26,10 @@ public class Beneficiario implements Serializable{
     private LocalDateTime  createdAt;
     private LocalDateTime  updatedAt;
     private LocalDateTime  deletedAt;
+    
+    @ManyToOne
+    @JoinColumn(name = "idUsuario", insertable = false, updatable = false)
+    private Usuario usuario;
 
     public Beneficiario(){
     }

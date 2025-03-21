@@ -7,6 +7,7 @@ import com.G4.AsociacionSolidarista.domain.Usuario;
 import com.G4.AsociacionSolidarista.domain.Rol;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -39,5 +40,15 @@ public class UsuarioDetailsServiceImpl implements UsuarioDetailsService, UserDet
         }
         //Se devuelve User (clase de userDetails)
         return new User(usuario.getUsername(), usuario.getContrasena(), roles);
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public List<Usuario> getUsuarios(boolean activos) {
+        var lista = usuarioDao.findAll();
+        if (activos) {
+            lista.removeIf(b -> b.getDeletedAt() != null);
+        }
+        return lista;
     }
 }

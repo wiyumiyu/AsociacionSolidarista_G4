@@ -2,17 +2,17 @@
 package com.G4.AsociacionSolidarista.controller;
 
 import com.G4.AsociacionSolidarista.domain.Beneficiario;
+import com.G4.AsociacionSolidarista.domain.Usuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.G4.AsociacionSolidarista.service.BeneficiarioService;
+import com.G4.AsociacionSolidarista.service.UsuarioDetailsService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/beneficiario")
@@ -20,11 +20,20 @@ public class BeneficiarioController {
 
     @Autowired
     private BeneficiarioService beneficiarioService;
+
+    @Autowired
+    private UsuarioDetailsService usuarioDetailsService;
     
     @RequestMapping("/listado")
     public String page(Model model) {
         var beneficiarios = beneficiarioService.getBeneficiarios(true);
+        List<Usuario> usuarios = usuarioDetailsService.getUsuarios(true);
+
         model.addAttribute("beneficiarios", beneficiarios);
+        model.addAttribute("usuarios", usuarios);
+        
+        model.addAttribute("beneficiario", new Beneficiario());
+        
         return "/beneficiario/listado";
     }
 

@@ -27,6 +27,9 @@ public class Ahorro implements Serializable{
     private String updatedAt;
     private String deletedAt;
     
+    @ManyToOne
+    @JoinColumn(name = "idUsuario", insertable = false, updatable = false)
+    private Usuario usuario;
     
     public Ahorro(){
     }

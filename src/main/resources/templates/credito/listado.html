@@ -1,38 +1,39 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="layout/plantilla :: head"></head>
-  <body>
-      <header th:replace="layout/plantilla :: header"></header> 
-      <div th:replace="layout/plantilla :: barraLateral"></div>
-      
-      
-      
 
-       <div class="contenido">
-          
-          
-          <ul class="nav nav-tabs">
-              <li class="nav-item">
-                  <a class="nav-link" aria-current="page" th:href="@{/ahorro/listado}">[[#{tab.ahorroactivo}]]</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link active" href="#">[[#{tab.ahorrohistorial}]]</a>
-              </li>
-          </ul>
-      </div>   
-    
-    
-    <!-- Jquery -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
-      integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
-      crossorigin="anonymous"
-    ></script>
-    <script src="script.js"></script> 
-  </body>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="layout/plantilla :: head">
+        <title>Asobank</title>
+    </head>
+
+    <body>
+        <header th:replace="layout/plantilla :: header"></header>
+        <div th:replace="layout/plantilla :: barraLateral"></div>
+
+        <!-- <section th:replace="credito/fragmentos :: botonesAgregar" /> --> 
+
+        <div class="contenidoTabs">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/credito/listado}" sec:authorize="hasRole('ROLE_ADMIN')">[[#{mp.credito.aprobacion}]]</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/credito/listado/{idUsuario}(idUsuario=${session.idUsuario})}" sec:authorize="hasRole('ROLE_CLIENT') && !hasRole('ROLE_ADMIN')">[[#{mp.credito.aprobacion}]]</a>
+                </li>
+            </ul>
+        </div>
+
+        <section th:replace="credito/fragmentos :: listadoCredito" />
+        <!-- <section th:replace="credito/fragmentos :: agregarCredito" /> --> 
+
+
+
+        <!-- Jquery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
+                integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
+        crossorigin="anonymous"></script>
+        <script src="script.js"></script>
+    </body>
+
 </html>
-
 
 
 

@@ -26,12 +26,15 @@ public class Credito implements Serializable{
     private Long tasa;
     private int estado;
     private String fecha_aprobacion;
+    private String createdAt;
+    private String updatedAt;
+    private String deletedAt;
     
     
     public Credito(){
     }
 
-    public Credito(Long id_usuario, String nombre, Long monto_solicitado, int plazo, Long monto_actual, Long cuota, Long tasa, int estado, String fecha_aprobacion) {
+    public Credito(Long id_usuario, String nombre, Long monto_solicitado, int plazo, Long monto_actual, Long cuota, Long tasa, int estado, String fecha_aprobacion, String createdAt, String updatedAt, String deletedAt) {
         this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.monto_solicitado = monto_solicitado;
@@ -41,10 +44,9 @@ public class Credito implements Serializable{
         this.tasa = tasa;
         this.estado = estado;
         this.fecha_aprobacion = fecha_aprobacion;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
     }
-
-
-    
-    
-
+  
 }

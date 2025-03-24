@@ -151,3 +151,9 @@ CREATE TABLE beneficiario (
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 
+INSERT INTO credito (id_usuario, nombre, monto_solicitado, plazo, monto_actual, cuota, tasa, estado, fecha_aprobacion)
+VALUES
+    (1, 'Crédito Hipotecario', 150000.00, 240, 148500.00, 625.50, 5.5, 1, '2023-08-15'),
+    (1, 'Crédito de Consumo', 3000.00, 18, 2900.00, 180.00, 14.0, 1, '2023-09-25'),
+    (2, 'Crédito Personal', 5000.00, 24, 4800.00, 220.83, 12.0, 1, '2023-09-10'),
+    (2, 'Crédito Estudiantil', 8000.00, 36, 7800.00, 250.00, 7.5, 1, '2023-10-18');

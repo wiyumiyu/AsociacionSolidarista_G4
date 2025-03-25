@@ -33,7 +33,7 @@
 .btn-logout {
     background: none;
     border: none;
-    color: inherit; /* Usa el color del menú */
+    color: #757575; /* Usa el color del menú */
     font: inherit;
     cursor: pointer;
     display: flex;
@@ -43,9 +43,8 @@
 }
 
 .btn-logout:hover {
-    color: #f00; /* Cambia a un color llamativo al pasar el mouse */
+    color: #fff; /* Cambia a un color llamativo al pasar el mouse */
 }
-
 
 .sidebar {
   position: fixed; /* Fija el sidebar en la pantalla */

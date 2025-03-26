@@ -2,9 +2,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://wwww.thymeleaf.org">
-    <head th:replace="layout/plantilla :: head"> <title>Asobank</title></head>
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Asobank</title>
+        <meta charset="UTF-8"/>
+    </head>
+    
     <body>
-        <header th:replace="layout/plantilla :: header"></header> 
+        <header th:replace="~{layout/plantilla :: header}"/>
         
         <div class="container mt-5">
             <div class="row justify-content-center">
@@ -19,12 +23,10 @@
                                     <label for="username" class="form-label">[[#{mp.login.correo}]]</label>
                                     <input type="username" class="form-control" id="username" name="username" required>
                                 </div>
-                         
-                                
-                                
+
                                 <div class="mb-3">
-                                    <label for="contrasena" class="form-label">[[#{mp.login.clave}]]</label>
-                                    <input type="contrasena" class="form-control" id="contrasena" name="contrasena" required>
+                                    <label for="password" class="form-label">[[#{mp.login.clave}]]</label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
                                 </div>
                                 <button type="submit" style="background-color: #6A1039" class="btn text-white w-100 mt-5">[[#{mp.login.button}]]</button>
                             </form>

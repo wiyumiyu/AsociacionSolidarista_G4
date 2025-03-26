@@ -4,6 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.G4.AsociacionSolidarista.domain.Credito;
 
 public interface CreditoDao extends JpaRepository<Credito, Long>{
-    
+   
 
 }
+
+
+

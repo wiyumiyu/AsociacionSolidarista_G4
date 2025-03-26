@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.security.core.userdetails.*;
 
-import com.G4.AsociacionSolidarista.domain.Beneficiario;
 import com.G4.AsociacionSolidarista.domain.Usuario;
 
 public interface UsuarioDetailsService {

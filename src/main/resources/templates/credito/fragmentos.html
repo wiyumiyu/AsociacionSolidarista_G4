@@ -11,6 +11,7 @@
 
         <!-- 3 Sección principal para mostrar la informaccion de la entidad credito -->
         <section th:fragment="listadoCredito" id="creditos">
+
             <div class="contenido">
                 <div th:if="${creditos != null and !creditos.empty}">
                     <table class="table table-hover">
@@ -40,12 +41,20 @@
                                 <td>[[${credito.estado}]]</td>
                                 <td>[[${credito.fecha_aprobacion}]]</td>
                                 <td sec:authorize="hasRole('ROLE_ADMIN')">
-                                    <a th:href="@{/credito/eliminar/}+${credito.idCredito}" class="btn text-white"
-                                       style="background-color: #A4613A">
-                                        <i class="fas fa-trash"></i></a>
-                                    <a th:href="@{/credito/modificar/}+${credito.idCredito}" class="btn text-white"
-                                       style="background-color: #313C61">
-                                        <i class="fas fa-pencil"></i></a>
+                                    <th:block th:if="${credito.estado == 0}">
+                                        <a th:href="@{/credito/rechazar/}+${credito.idCredito}" class="btn text-white"
+                                           style="background-color: #A4613A">
+                                            <i class="fas fa-x"></i></a>
+                                        <a th:href="@{/credito/aprobar/}+${credito.idCredito}" class="btn text-white"
+                                           style="background-color: #313C61">
+                                            <i class="fas fa-check"></i></a>
+                                    </th:block>
+                                    <th:block th:if="${credito.estado == 1}">
+                                        <span class="badge text-bg-success">Aprobado</span>
+                                    </th:block>
+                                    <th:block th:if="${credito.estado == 2}">
+                                         <span class="badge text-white" style="background-color: #A4613A;">Rechazado</span>
+                                    </th:block>
                                 </td>
                             </tr>
                         </tbody>
@@ -57,6 +66,6 @@
             </div>
         </section>
 
-</body>
-     
+    </body>
+
 </html>

@@ -8,7 +8,7 @@ FLUSH PRIVILEGES;
 
 CREATE TABLE usuario (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-    contrasena VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     direccion VARCHAR(100) NOT NULL,
     genero VARCHAR(10) NOT NULL,
@@ -31,14 +31,14 @@ CREATE TABLE usuario (
 #drop table aportecredito;
 
 insert INTO usuario
-(contrasena, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
+(password, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
 ("$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.", "Mariana T.", "", "Femenino", "88223366", "mariana@gmail.com" , "101110222","2000-01-01");
 insert INTO usuario
-(contrasena, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
+(password, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
 ("$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.", "Julio Rodríguez", "", "Masculino", "88223366", "vjuliorc@gmail.com" , "1111111","2000-01-01");
 
 insert INTO usuario
-(contrasena, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
+(password, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
 ("$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.", "Isaac Ruiz", "Cartago", "Masculino", "88222266", "isaac@gmail.com" , "3333333","2004-03-02");
 
 CREATE TABLE `rol` (

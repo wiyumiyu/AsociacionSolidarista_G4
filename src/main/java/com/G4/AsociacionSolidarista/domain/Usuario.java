@@ -1,6 +1,6 @@
 package com.G4.AsociacionSolidarista.domain;
 
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,7 +26,8 @@ public class Usuario implements Serializable {
     @NotEmpty
     private String username;    
     @NotEmpty
-    private String contrasena;
+    private String password;
+    
     private String nombre;
     private String direccion;
     private String genero;

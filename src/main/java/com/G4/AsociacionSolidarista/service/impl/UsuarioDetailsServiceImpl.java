@@ -39,7 +39,7 @@ public class UsuarioDetailsServiceImpl implements UsuarioDetailsService, UserDet
             roles.add(new SimpleGrantedAuthority(rol.getNombre()));
         }
         //Se devuelve User (clase de userDetails)
-        return new User(usuario.getUsername(), usuario.getContrasena(), roles);
+        return new User(usuario.getUsername(), usuario.getPassword(), roles);
     }
     
     @Override

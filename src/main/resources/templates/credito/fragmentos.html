@@ -18,6 +18,7 @@
                         <thead class="table-light">
                             <tr>
                                 <th>#</th>
+                                <th>[[#{mp.credito.usuario.nombre}]]</th>
                                 <th>[[#{mp.credito.descripcion}]]</th>
                                 <th>[[#{mp.credito.monto_solicidato}]]</th>
                                 <th>[[#{mp.credito.plazo}]]</th>
@@ -32,14 +33,15 @@
                         <tbody>
                             <tr th:each="credito, contador : ${creditos}">
                                 <td>[[${contador.count}]]</td>
+                                <td>[[${credito.usuario.nombre}]]</td>
                                 <td>[[${credito.descripcion}]]</td>
-                                <td>[[${credito.monto_solicitado}]]</td>
+                                <td>[[${credito.montoSolicitado}]]</td>
                                 <td>[[${credito.plazo}]]</td>
-                                <td>[[${credito.monto_actual}]]</td>
+                                <td>[[${credito.montoActual}]]</td>
                                 <td>[[${credito.cuota}]]</td>
                                 <td>[[${credito.tasa}]]</td>
                                 <td>[[${credito.estado}]]</td>
-                                <td>[[${credito.fecha_aprobacion}]]</td>
+                                <td>[[${credito.fechaAprobacion}]]</td>
                                 <td sec:authorize="hasRole('ROLE_ADMIN')">
                                     <th:block th:if="${credito.estado == 0}">
                                         <a th:href="@{/credito/rechazar/}+${credito.idCredito}" class="btn text-white"

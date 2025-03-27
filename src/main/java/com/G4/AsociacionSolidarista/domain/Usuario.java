@@ -1,6 +1,8 @@
 package com.G4.AsociacionSolidarista.domain;
 
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +24,7 @@ public class Usuario implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario") 
     private Long idUsuario;    
     @NotEmpty
     private String username;    
@@ -38,15 +41,19 @@ public class Usuario implements Serializable {
     private LocalDateTime  updatedAt;
     private LocalDateTime  deletedAt;
     
-    @OneToMany
-    @JoinColumn(name="idUsuario", insertable=false, updatable=false)
-    private List<Credito> creditos;
+//    @OneToMany
+//    @JoinColumn(name="idUsuario", insertable=false, updatable=false)
+//    private List<Credito> creditos;
   
     @OneToMany
     @JoinColumn(name = "idUsuario", insertable = false, updatable = false)
     private List<Beneficiario> beneficiarios;
     
     @OneToMany
-    @JoinColumn(name="idUsuario")
+    @JoinColumn(name="id_usuario")
     private List<Rol> roles;
+    
+    
+
+    
 }

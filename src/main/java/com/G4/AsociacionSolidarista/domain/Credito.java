@@ -17,37 +17,37 @@ public class Credito implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_credito") 
     private Long idCredito; // lo interpreta como id_credito automaticamente
-    private Long id_usuario; // lo interpreta como id_credito automaticamente
+    //private Long idUsuario; // lo interpreta como id_credito automaticamente
     private String descripcion;
-    private Long monto_solicitado;
+    private Long montoSolicitado;
     private int plazo;
-    private Long monto_actual;
+    private Long montoActual;
     private Long cuota;
     private Long tasa;
     private int estado;
-    private String fecha_aprobacion;
+    private String fechaAprobacion;
     private String createdAt;
     private String updatedAt;
     private String deletedAt;
     
     @ManyToOne
-    @JoinColumn(name="idUsuario")
+    @JoinColumn(name="id_usuario")
     private Usuario usuario;
-    
+
     
     public Credito(){
     }
 
-    public Credito(Long id_usuario, String descripcion, Long monto_solicitado, int plazo, Long monto_actual, Long cuota, Long tasa, int estado, String fecha_aprobacion, String createdAt, String updatedAt, String deletedAt) {
-        this.id_usuario = id_usuario;
+    public Credito( String descripcion, Long montoSolicitado, int plazo, Long montoActual, Long cuota, Long tasa, int estado, String fechaAprobacion, String createdAt, String updatedAt, String deletedAt) {
+        //this.idUsuario = idUsuario;
         this.descripcion = descripcion;
-        this.monto_solicitado = monto_solicitado;
+        this.montoSolicitado = montoSolicitado;
         this.plazo = plazo;
-        this.monto_actual = monto_actual;
+        this.montoActual = montoActual;
         this.cuota = cuota;
         this.tasa = tasa;
         this.estado = estado;
-        this.fecha_aprobacion = fecha_aprobacion;
+        this.fechaAprobacion = fechaAprobacion;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;

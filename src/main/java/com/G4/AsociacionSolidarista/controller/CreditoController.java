@@ -36,7 +36,6 @@ public class CreditoController {
     @RequestMapping("/listado")
     public String page(Model model) {
         List<Usuario> listaUsuarios = usuarioDetailsService.getUsuarios(true);
-        
         var creditos = creditoService.getCreditos(false);
         model.addAttribute("creditos", creditos);
         model.addAttribute("totalCreditos", creditos.size());
@@ -45,18 +44,7 @@ public class CreditoController {
         return "/credito/listado";
     }
     
-//    @GetMapping("/aprobar/{idCredito}")
-//    public String aprobarCredito(Credito credito, Model model) {
-//        credito = creditoService.getCredito(credito);
-//        model.addAttribute("credito", credito);
-//        return "/credito/aprobar";
-//    }    
-//    @GetMapping("/rechazar/{idCredito}")
-//    public String rechazarModificar(Credito credito, Model model) {
-//        credito = creditoService.getCredito(credito);
-//        model.addAttribute("credito", credito);
-//        return "/credito/rechazar";
-//    }      
+ 
     
     
         @GetMapping("/aprobar/{id}")

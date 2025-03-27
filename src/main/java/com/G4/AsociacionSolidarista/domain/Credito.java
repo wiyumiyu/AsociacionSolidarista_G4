@@ -18,7 +18,7 @@ public class Credito implements Serializable{
     @Column(name = "id_credito") 
     private Long idCredito; // lo interpreta como id_credito automaticamente
     private Long id_usuario; // lo interpreta como id_credito automaticamente
-    private String nombre;
+    private String descripcion;
     private Long monto_solicitado;
     private int plazo;
     private Long monto_actual;
@@ -30,13 +30,17 @@ public class Credito implements Serializable{
     private String updatedAt;
     private String deletedAt;
     
+    @ManyToOne
+    @JoinColumn(name="idUsuario")
+    private Usuario usuario;
+    
     
     public Credito(){
     }
 
-    public Credito(Long id_usuario, String nombre, Long monto_solicitado, int plazo, Long monto_actual, Long cuota, Long tasa, int estado, String fecha_aprobacion, String createdAt, String updatedAt, String deletedAt) {
+    public Credito(Long id_usuario, String descripcion, Long monto_solicitado, int plazo, Long monto_actual, Long cuota, Long tasa, int estado, String fecha_aprobacion, String createdAt, String updatedAt, String deletedAt) {
         this.id_usuario = id_usuario;
-        this.nombre = nombre;
+        this.descripcion = descripcion;
         this.monto_solicitado = monto_solicitado;
         this.plazo = plazo;
         this.monto_actual = monto_actual;

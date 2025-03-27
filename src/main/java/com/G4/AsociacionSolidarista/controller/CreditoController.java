@@ -3,13 +3,16 @@ package com.G4.AsociacionSolidarista.controller;
 
 import com.G4.AsociacionSolidarista.domain.Ahorro;
 import com.G4.AsociacionSolidarista.domain.Credito;
+import com.G4.AsociacionSolidarista.domain.Usuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.G4.AsociacionSolidarista.service.CreditoService;
+import com.G4.AsociacionSolidarista.service.UsuarioDetailsService;
 import com.G4.AsociacionSolidarista.service.impl.FirebaseStorageServiceImpl;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,15 +26,21 @@ public class CreditoController {
 
     @Autowired
     private CreditoService creditoService;
+    
+    @Autowired
+    private UsuarioDetailsService usuarioDetailsService;
 
     @Autowired
     private FirebaseStorageServiceImpl firebaseStorageService;
     
     @RequestMapping("/listado")
     public String page(Model model) {
+        List<Usuario> listaUsuarios = usuarioDetailsService.getUsuarios(true);
+        
         var creditos = creditoService.getCreditos(false);
         model.addAttribute("creditos", creditos);
         model.addAttribute("totalCreditos", creditos.size());
+        model.addAttribute("usuarios", listaUsuarios);
      
         return "/credito/listado";
     }

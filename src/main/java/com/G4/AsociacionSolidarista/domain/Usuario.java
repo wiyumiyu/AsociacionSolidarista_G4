@@ -37,12 +37,16 @@ public class Usuario implements Serializable {
     private LocalDateTime  createdAt;
     private LocalDateTime  updatedAt;
     private LocalDateTime  deletedAt;
+    
+    @OneToMany
+    @JoinColumn(name="idUsuario", insertable=false, updatable=false)
+    private List<Credito> creditos;
   
     @OneToMany
     @JoinColumn(name = "idUsuario", insertable = false, updatable = false)
     private List<Beneficiario> beneficiarios;
     
     @OneToMany
-    @JoinColumn(name="id_usuario")
+    @JoinColumn(name="idUsuario")
     private List<Rol> roles;
 }

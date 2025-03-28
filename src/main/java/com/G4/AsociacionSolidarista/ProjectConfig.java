@@ -90,7 +90,7 @@ public class ProjectConfig implements WebMvcConfigurer {
                 )
                 .formLogin((form) -> form
                 .loginPage("/login")
-                .loginProcessingUrl("/login") // 👈 ESTO ES LO QUE TE FALTA
+                .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/", true)
                 .failureUrl("/login?error=true")
                 .permitAll()

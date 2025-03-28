@@ -49,6 +49,12 @@ public class AhorroController {
     public String getAhorrosByUsuario(@PathVariable Long idUsuario, Model model) {
         
         List<Ahorro> ahorros = ahorroService.getAhorrosByIdUsuario(idUsuario);
+        
+        Ahorro ahorro = new Ahorro();
+        ahorro.setIdUsuario(idUsuario);
+        
+        model.addAttribute("ahorro", ahorro);
+        model.addAttribute("idUsuario", idUsuario);
         model.addAttribute("ahorros", ahorros);
         model.addAttribute("totalAhorros", ahorros.size());
         return "/ahorro/listado";

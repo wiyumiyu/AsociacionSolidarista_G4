@@ -57,14 +57,15 @@ public class ProjectConfig implements WebMvcConfigurer{
         return messageSource;
     }
     
-    
         /* Los siguiente métodos son para implementar el tema de seguridad dentro del proyecto */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index").setViewName("index");
         registry.addViewController("/login").setViewName("login");
-        //registry.addViewController("/ahorro/listado").setViewName("/registro/nuevo");
+        registry.addViewController("/ahorro/listado").setViewName("ahorro/listado");
+        registry.addViewController("/credito/listado").setViewName("credito/listado");
+        //registry.addViewController("/script.js").setViewName("ahorro/listado");
 
     }
     
@@ -76,23 +77,23 @@ public class ProjectConfig implements WebMvcConfigurer{
         build.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     } 
     
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeHttpRequests((request) -> request
-//                .requestMatchers("/", "/index" , "/js/**", "/webjars/**")
-//                .permitAll()
-//                .requestMatchers(
-//                        "/ahorro/listado",
-//                        "/credito/listado"
-//                ).hasRole("ADMIN")
-//                .anyRequest().authenticated() // Se asegura de que el resto de las rutas requieran autenticación
-//                )
-//                .formLogin((form) -> form
-//                .loginPage("/login").permitAll())
-//                .logout((logout) -> logout.permitAll());
-//        return http.build();
-//    }   
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests((request) -> request
+                .requestMatchers("/", "/index" , "/js/**", "/css/**","/webjars/**", "/images/**", "/errores/**", "/error")
+                .permitAll()
+                .requestMatchers(
+                        "/ahorro/listado","/ahorro/historial", "/ahorro/modificar/**",
+                        "/credito/listado" , "/credito/rechazar/**", "/credito/aprobar/**"
+                ).hasRole("ADMIN")
+                .anyRequest().authenticated() // Se asegura de que el resto de las rutas requieran autenticación
+                )
+                .formLogin((form) -> form
+                .loginPage("/login").permitAll())
+                .logout((logout) -> logout.permitAll());
+        return http.build();
+    }   
  
     
     

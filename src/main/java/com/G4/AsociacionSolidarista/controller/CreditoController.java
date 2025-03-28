@@ -44,10 +44,7 @@ public class CreditoController {
         return "/credito/listado";
     }
     
- 
-    
-    
-        @GetMapping("/aprobar/{id}")
+    @GetMapping("/aprobar/{id}")
     public String aprobarCredito(@PathVariable Long id) {
         creditoService.cambiarEstado(id, 1); // Estado 1 = Aprobado
         return "redirect:/credito/listado";

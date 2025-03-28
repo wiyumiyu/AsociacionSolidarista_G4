@@ -7,7 +7,7 @@
     </head>
 
     <body>
-        <!-- 3 Sección principal para mostrar la informaccion de la entidad categoria -->
+        <!-- 3 Sección principal para mostrar la informaccion de la entidad beneficiario -->
         <section th:fragment="listadoBeneficiariosActivo" id="beneficiarios">
             <div class="contenido">
                 <div class="row">
@@ -24,20 +24,20 @@
                                             <th>[[#{mp.beneficiario.parentesco}]]</th>
                                             <th>[[#{mp.beneficiario.porcentajeBeneficiario}]]</th>
                                             <th>[[#{mp.beneficiario.estado}]]</th>
-                                            <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{mp.beneficiario.acciones}]]</th>
+                                            <th>[[#{mp.beneficiario.acciones}]]</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="beneficiario, contador : ${beneficiarios}">
                                             <td>[[${contador.count}]]</td>
-                                            <td>[[${beneficiario.idUsuario}]]</td>
+                                            <td>[[${beneficiario.usuario.nombre}]]</td>
                                             <td>[[${beneficiario.nombre}]]</td>
                                             <td>[[${beneficiario.cedula}]]</td>
                                             <td>[[${beneficiario.parentesco}]]</td>
                                             <td>[[${beneficiario.porcentajeBeneficiario}]]</td>
                                             <td th:text="${beneficiario.deletedAt} ? 'Inactivo' : 'Activo'" />
-                                            <td sec:authorize="hasRole('ROLE_ADMIN')">
-                                                <a th:href="@{/beneficiario/eliminar/}+${beneficiario.idBeneficiario}"
+                                            <td>
+                                                <a  sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/beneficiario/eliminar/}+${beneficiario.idBeneficiario}"
                                                    class="btn text-white" style="background-color: #A4613A">
                                                     <i class="fas fa-trash"></i></a>
                                                 <a th:href="@{/beneficiario/modificar/}+${beneficiario.idBeneficiario}"
@@ -70,12 +70,15 @@
                         <form th:action="@{/beneficiario/guardar}" th:object="${beneficiario}" method="POST"
                               class="was-validated" enctype="multipart/form-data">
                             <div class="modal-body">
-                                <div class="mb-3">
+                                <div class="mb-3" sec:authorize="hasRole('ROLE_ADMIN')">
                                     <label for="usuario.idUsuario">[[#{mp.beneficiario.usuario}]]</label>
                                     <select class="form-control" th:field="*{idUsuario}" id="idUsuario">
                                         <option th:each="u : ${usuarios}" th:value="${u.idUsuario}" name="usuario.idUsuario">[[${u.nombre}]]</option>
                                     </select>
                                 </div>
+                                
+                                <input type="hidden" th:field="*{idUsuario}" sec:authorize="!hasRole('ROLE_ADMIN')" />
+
                                 <div class="mb-3">
                                     <label for="nombre">[[#{mp.beneficiario.nombre}]]</label>
                                     <input type="text" class="form-control" name="nombre" required="true" maxlength="100" />
@@ -110,7 +113,7 @@
 
         <!-- Agregar -->
         <section th:fragment="botonesAgregar">
-            <div class="contenidoTitulo" style="padding-left: 300px;" sec:authorize="hasRole('ROLE_ADMIN')">
+            <div class="contenidoTitulo" style="padding-left: 300px;">
                 <div class="container d-flex justify-content-between align-items-center">
                     <span class="fs-2" style="color: #757575;">[[#{mp.beneficiario.listado}]]</span>
                     <button type="button" class="btn text-white" style="background-color: #6A1039" data-bs-toggle="modal"

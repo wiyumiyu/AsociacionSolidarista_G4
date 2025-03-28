@@ -18,13 +18,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-
 @Configuration
-public class ProjectConfig implements WebMvcConfigurer{
-    
+public class ProjectConfig implements WebMvcConfigurer {
+
     /* Los siguientes métodos son para incorporar el tema de internacionalización en el proyecto */
 
-    /* localeResolver se utiliza para crear una sesión de cambio de idioma */
+ /* localeResolver se utiliza para crear una sesión de cambio de idioma */
     @Bean
     public LocaleResolver localeResolver() {
         var slr = new SessionLocaleResolver();
@@ -47,17 +46,17 @@ public class ProjectConfig implements WebMvcConfigurer{
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
     }
-    
-      //Bean para poder acceder a los Messages.properties en código Java...
+
+    //Bean para poder acceder a los Messages.properties en código Java...
     @Bean("messageSource")
     public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource= new ResourceBundleMessageSource();
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasenames("messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
-    
-        /* Los siguiente métodos son para implementar el tema de seguridad dentro del proyecto */
+
+    /* Los siguiente métodos son para implementar el tema de seguridad dentro del proyecto */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
@@ -68,33 +67,36 @@ public class ProjectConfig implements WebMvcConfigurer{
         //registry.addViewController("/script.js").setViewName("ahorro/listado");
 
     }
-    
+
     @Autowired
     private UserDetailsService userDetailsService;
-    
+
     @Autowired
     public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception {
         build.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-    } 
-    
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((request) -> request
-                .requestMatchers("/", "/index" , "/js/**", "/css/**","/webjars/**", "/images/**", "/errores/**", "/error")
+                .requestMatchers("/", "/index", "/js/**", "/css/**", "/webjars/**", "/images/**", "/errores/**", "/error")
                 .permitAll()
                 .requestMatchers(
-                        "/ahorro/listado","/ahorro/historial", "/ahorro/modificar/**",
-                        "/credito/listado" , "/credito/rechazar/**", "/credito/aprobar/**"
+                        "/ahorro/listado", "/ahorro/historial", "/ahorro/modificar/**",
+                        "/credito/listado", "/credito/rechazar/**", "/credito/aprobar/**"
                 ).hasRole("ADMIN")
-                .anyRequest().authenticated() // Se asegura de que el resto de las rutas requieran autenticación
+                .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
-                .loginPage("/login").permitAll())
+                .loginPage("/login")
+                .loginProcessingUrl("/login") // 👈 ESTO ES LO QUE TE FALTA
+                .defaultSuccessUrl("/", true)
+                .failureUrl("/login?error=true")
+                .permitAll()
+                )
                 .logout((logout) -> logout.permitAll());
         return http.build();
-    }   
- 
-    
-    
+    }
+
 }

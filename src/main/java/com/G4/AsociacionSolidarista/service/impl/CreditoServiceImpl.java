@@ -37,8 +37,6 @@ public class CreditoServiceImpl implements CreditoService {
         creditoDao.save(credito);
     }
     
-    
-    
     public void cambiarEstado(Long id, int nuevoEstado) {
         Optional<Credito> optionalCredito = creditoDao.findById(id);
         if (optionalCredito.isPresent()) {

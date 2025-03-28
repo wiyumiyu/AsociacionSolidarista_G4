@@ -41,7 +41,14 @@ public class BeneficiarioController {
     public String getBeneficiariosByUsuario(@PathVariable Long idUsuario, Model model) {
         
         List<Beneficiario> beneficiarios = beneficiarioService.getBeneficiariosByIdUsuario(idUsuario);
+        
+        Beneficiario beneficiario = new Beneficiario();
+        beneficiario.setIdUsuario(idUsuario);
+         
         model.addAttribute("beneficiarios", beneficiarios);
+        model.addAttribute("beneficiario", beneficiario);
+        model.addAttribute("idUsuario", idUsuario);
+        
         return "/beneficiario/listado";
     }  
     

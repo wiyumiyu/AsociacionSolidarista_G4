@@ -18,10 +18,10 @@
                             <img class="" src="../images/Logo.png" alt="Asobank Logo" />
                         </div>
                         <div class="card-body mt-4">
-                            <form th:action="@{/login}" method="post">
+                            <form method="POST" th:action="@{/login}">
                                 <div class="mb-4">
                                     <label for="username" class="form-label">[[#{mp.login.correo}]]</label>
-                                    <input type="username" class="form-control" id="username" name="username" required>
+                                    <input type="text" class="form-control" id="username" name="username" required>
                                 </div>
 
                                 <div class="mb-3">

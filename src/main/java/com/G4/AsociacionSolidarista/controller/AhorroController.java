@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ public class AhorroController {
 
     @Autowired
     private AhorroService ahorroService;
-    
+
     @Autowired
     private UsuarioDetailsService usuarioDetailsService;
 
@@ -34,11 +35,11 @@ public class AhorroController {
     @RequestMapping("/listado")
     public String page(Model model) {
         var ahorros = ahorroService.getAhorros(true);
-         List<Usuario> usuarios = usuarioDetailsService.getUsuarios(true);
-         
+        List<Usuario> usuarios = usuarioDetailsService.getUsuarios(true);
+
         model.addAttribute("ahorros", ahorros);
         model.addAttribute("totalAhorros", ahorros.size());
-        
+
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("ahorro", new Ahorro());
 
@@ -47,18 +48,18 @@ public class AhorroController {
 
     @GetMapping("/listado/{idUsuario}")
     public String getAhorrosByUsuario(@PathVariable Long idUsuario, Model model) {
-        
+
         List<Ahorro> ahorros = ahorroService.getAhorrosByIdUsuario(idUsuario);
-        
+
         Ahorro ahorro = new Ahorro();
         ahorro.setIdUsuario(idUsuario);
-        
+
         model.addAttribute("ahorro", ahorro);
         model.addAttribute("idUsuario", idUsuario);
         model.addAttribute("ahorros", ahorros);
         model.addAttribute("totalAhorros", ahorros.size());
         return "/ahorro/listado";
-    }  
+    }
 
     @RequestMapping("/historial")
     public String historial(Model model) {
@@ -70,11 +71,20 @@ public class AhorroController {
     }
 
     @PostMapping("/guardar")
-    public String ahorroGuardar(Ahorro ahorro) {
+    public String ahorroGuardar(Ahorro ahorro, Authentication auth) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         ahorro.setCreatedAt(LocalDateTime.now().format(formatter));
         ahorroService.save(ahorro);
-        return "redirect:/ahorro/listado";
+
+        // Verificar si el usuario es admin
+        boolean isAdmin = auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+        if (isAdmin) {
+            return "redirect:/ahorro/listado";
+        } else {
+            return "redirect:/ahorro/listado/" + ahorro.getIdUsuario();
+        }
     }
 
     @GetMapping("/eliminar/{idAhorro}")
@@ -98,9 +108,9 @@ public class AhorroController {
         //borrado lógico
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
         ahorro.setDeletedAt(timestamp.toString());
-        
+
         ahorroService.save(ahorro);
-        
+
         model.addAttribute("ahorro", ahorro);
         return "redirect:/ahorro/historial";
     }

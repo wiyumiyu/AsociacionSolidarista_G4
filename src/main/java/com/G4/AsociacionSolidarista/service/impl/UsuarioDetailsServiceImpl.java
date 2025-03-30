@@ -58,4 +58,10 @@ public class UsuarioDetailsServiceImpl implements UsuarioDetailsService, UserDet
         }
         return lista;
     }
+
+    @Override
+    public Usuario getUsuarioByIdUsuario(Long idUsuario) {
+       return  usuarioDao.getUsuarioByIdUsuario(idUsuario);
+        
+    }
 }

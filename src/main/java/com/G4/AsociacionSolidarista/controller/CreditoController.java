@@ -1,4 +1,3 @@
-
 package com.G4.AsociacionSolidarista.controller;
 
 import com.G4.AsociacionSolidarista.domain.Ahorro;
@@ -26,13 +25,13 @@ public class CreditoController {
 
     @Autowired
     private CreditoService creditoService;
-    
+
     @Autowired
     private UsuarioDetailsService usuarioDetailsService;
 
     @Autowired
     private FirebaseStorageServiceImpl firebaseStorageService;
-    
+
     @RequestMapping("/listado")
     public String page(Model model) {
         List<Usuario> listaUsuarios = usuarioDetailsService.getUsuarios(true);
@@ -40,21 +39,28 @@ public class CreditoController {
         model.addAttribute("creditos", creditos);
         model.addAttribute("totalCreditos", creditos.size());
         model.addAttribute("usuarios", listaUsuarios);
-     
+
         return "/credito/listado";
     }
-    
+
     @GetMapping("/listado/{idUsuario}")
     public String getCreditosByUsuario(@PathVariable Long idUsuario, Model model) {
         List<Usuario> listaUsuarios = usuarioDetailsService.getUsuarios(true);
         List<Credito> creditos = creditoService.buscarPorIdUsuario(idUsuario);
+
+        // Crear un nuevo crédito con el idUsuario preestablecido
+        Credito credito = new Credito();
+        Usuario usuario = new Usuario();
+        usuario.setIdUsuario(idUsuario);
+        credito.setUsuario(usuario);
+
         model.addAttribute("creditos", creditos);
         model.addAttribute("totalCreditos", creditos.size());
         model.addAttribute("usuarios", listaUsuarios);
-        model.addAttribute("credito", new Credito()); // Asegura que no sea nulo
+        model.addAttribute("credito", credito); // Añadir el objeto credito al modelo
         return "/credito/listado";
     }
-    
+
     @GetMapping("/aprobar/{id}")
     public String aprobarCredito(@PathVariable Long id) {
         creditoService.cambiarEstado(id, 1); // Estado 1 = Aprobado
@@ -66,15 +72,35 @@ public class CreditoController {
         creditoService.cambiarEstado(id, 2); // Estado 2 = Rechazado
         return "redirect:/credito/listado";
     }
-    
+
+//    @PostMapping("/guardar")
+//    public String creditoGuardar(Credito credito) {
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//        credito.setCreatedAt(LocalDateTime.now().format(formatter));
+//
+//        creditoService.save(credito);
+//        return "redirect:/credito/listado";
+//    }
+
     @PostMapping("/guardar")
-    public String creditoGuardar(Credito credito) {
+    public String creditoGuardar(Credito credito, @RequestParam Long idUsuario) {
+
+        // Buscar el Usuario por ID
+        Usuario usuario = usuarioDetailsService.getUsuarioByIdUsuario(idUsuario);
+
+        // Establecer el Usuario en el objeto Credito
+        credito.setUsuario(usuario);
+
+        // Asignar fecha de creación
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         credito.setCreatedAt(LocalDateTime.now().format(formatter));
+
+        // Guardar el Crédito
         creditoService.save(credito);
         return "redirect:/credito/listado";
     }
-    
+
 //
 //    @GetMapping("/eliminar/{idCategoria}")
 //    public String categoriaEliminar(Categoria categoria) {
@@ -88,5 +114,4 @@ public class CreditoController {
 //        model.addAttribute("categoria", categoria);
 //        return "/categoria/modifica";
 //    }    
-
 }

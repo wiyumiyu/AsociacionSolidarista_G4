@@ -32,7 +32,7 @@ public class Credito implements Serializable{
     
     @ManyToOne
     @JoinColumn(name="id_usuario")
-    private Usuario usuario;
+    public Usuario usuario;
 
     
     public Credito(){

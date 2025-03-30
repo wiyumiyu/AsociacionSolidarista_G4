@@ -12,4 +12,6 @@ public interface UsuarioDetailsService {
 
     // Se obtiene un listado de beneficiarios en un List
     public List<Usuario> getUsuarios(boolean activos);
+    
+    public Usuario getUsuarioByIdUsuario(Long idUsuario);
 }

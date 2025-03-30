@@ -87,19 +87,20 @@
                             <h5 class="modal-title">[[#{mp.ahorro.agregar}]]</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form th:action="@{/credito/guardar}" th:object="${creditos}" method="POST" class="was-validated"
+                        <form th:action="@{/credito/guardar}" th:object="${credito}" method="POST" class="was-validated"
                               enctype="multipart/form-data">
                             <div class="modal-body">
-
-                                <input type="hidden" th:if="*{idUsuario != null}" th:field="*{idUsuario}" name="idUsuario" id="idUsuario"/>
+                                
+                                 <input type="hidden" name="idUsuario" id="idUsuario" th:value="${credito.usuario.idUsuario}" />
                                 <input type="hidden" value="0" name="montoActual" id="montoActual"/>
+                                <input type="hidden" value="0" name="estado" id="estado"/>
                                 <div class="mb-3">
                                     <label for="descripcion">Descripción</label>
-                                    <input type="text" class="form-control" name="descripcion" required maxlength="100" id="descripcion" />
+                                    <input type="text" class="form-control" name="descripcion"  maxlength="100" id="descripcion"   required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="montoSolicitado">Monto Solicitado</label>
-                                    <input type="number" class="form-control" name="montoSolicitado" id="montoSolicitado" required />
+                                    <input  type="number" class="form-control" name="montoSolicitado" id="montoSolicitado" required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="plazo">Plazo (meses)</label>

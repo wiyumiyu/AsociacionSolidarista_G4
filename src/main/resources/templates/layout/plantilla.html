@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <!-- Mantenemos los estilos originales -->
         <link rel="stylesheet" th:href="@{/css/style.css}" />
-        
+
         <script src="https://unpkg.com/@phosphor-icons/web"></script>
         <!-- Bootstrap y otros scripts -->
         <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
@@ -37,13 +37,10 @@
                     </li>
                     <li class="nav-item">
                         <div class="foto-perfil">
-                            <a th:href="@{/beneficiario/listado}" sec:authorize="hasRole('ROLE_ADMIN')">
-                                <img th:src="@{/images/user.png}" alt="Usuario" /> 
-                            </a>
-                            <a th:href="@{/beneficiario/listado/{idUsuario}(idUsuario=${session.idUsuario})}"
-                               sec:authorize="hasRole('ROLE_CLIENT') && !hasRole('ROLE_ADMIN')">
+                            <a th:href="@{/perfil/{idUsuario}(idUsuario=${session.idUsuario})}">
                                 <img th:src="@{/images/user.png}" alt="Usuario" />
                             </a>
+
                         </div>
                     </li>
                 </ul>
@@ -124,22 +121,14 @@
                                     <span class="text">[[#{mp.lateral.configuracion}]]</span>
                                 </a>
                             </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="menu">
-                    <ul>
-                        <li>
-                            <a>
-                            <form method="post" th:action="@{/logout}" style="display: inline;">
-                                <button type="submit" class="btn-logout">
+                            <li>
+                                <a th:href="@{/logout}" type="submit" class="btn-logout">
                                     <i class="icon ph-bold ph-sign-out"></i>
                                     <span class="text">[[#{mp.lateral.cerrarSesion}]]</span>
-                                </button>
-                            </form>
                                 </a>
-                        </li>
-                    </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

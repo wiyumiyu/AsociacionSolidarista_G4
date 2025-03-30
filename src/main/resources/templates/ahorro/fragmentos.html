@@ -10,11 +10,11 @@
 
     <!-- Sección para crear el botón de agregar y texto alineado a la izquierda -->
     <section th:fragment="botonesAgregar">
-        <div class="contenidoTitulo">
+        <div class="contenidoTitulo"  >
             <div class="container d-flex justify-content-between align-items-center">
                 <span class="fs-2" style="color: #757575;" th:text="#{mp.ahorro.listado}"></span>
                 <button id="btnAgregar" type="button" class="btn text-white" style="background-color: #6A1039"
-                    data-bs-toggle="modal" data-bs-target="#agregarAhorro">
+                    data-bs-toggle="modal" data-bs-target="#agregarAhorro" sec:authorize="hasRole('ROLE_CLIENT')">
                     <i class="fas fa-plus"></i>[[#{mp.ahorro.agregar}]]
                 </button>
             </div>
@@ -247,8 +247,8 @@
                             <td>[[${ahorro.cuota}]]</td>
                             <td>[[${ahorro.interesGenerado}]]</td>
                             <td>[[${ahorro.tasaInteres}]]%</td>
-                            <td th:text="${ahorro.createdAt.substring(0, 10)}"></td>
-                            <td th:text="${ahorro.deletedAt.substring(0, 10)}"></td>
+                            <td th:text="${ahorro.deletedAt != null ? ahorro.deletedAt.substring(0,10) : ''}"></td>
+                            <td th:text="${ahorro.deletedAt != null ? ahorro.deletedAt.substring(0,10) : ''}"></td>
                         </tr>
                     </tbody>
                 </table>

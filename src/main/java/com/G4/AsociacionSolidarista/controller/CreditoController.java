@@ -44,6 +44,17 @@ public class CreditoController {
         return "/credito/listado";
     }
     
+    @GetMapping("/listado/{idUsuario}")
+    public String getCreditosByUsuario(@PathVariable Long idUsuario, Model model) {
+        List<Usuario> listaUsuarios = usuarioDetailsService.getUsuarios(true);
+        List<Credito> creditos = creditoService.buscarPorIdUsuario(idUsuario);
+        model.addAttribute("creditos", creditos);
+        model.addAttribute("totalCreditos", creditos.size());
+        model.addAttribute("usuarios", listaUsuarios);
+        model.addAttribute("credito", new Credito()); // Asegura que no sea nulo
+        return "/credito/listado";
+    }
+    
     @GetMapping("/aprobar/{id}")
     public String aprobarCredito(@PathVariable Long id) {
         creditoService.cambiarEstado(id, 1); // Estado 1 = Aprobado

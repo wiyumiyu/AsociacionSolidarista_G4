@@ -52,5 +52,18 @@ public class Credito implements Serializable{
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
     }
-  
+
+    public String getEstadoTexto() {
+        return switch (this.estado) {
+            case 0 ->
+                "Pendiente de aprobación";
+            case 1 ->
+                "Aprobado";
+            case 2 ->
+                "Rechazado";
+            default ->
+                "Desconocido";
+        };
+    }
+
 }

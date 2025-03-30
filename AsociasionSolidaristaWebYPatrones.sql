@@ -20,26 +20,6 @@ CREATE TABLE usuario (
     updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP NULL
 );
-#drop table usuario;
-#drop table rol;
-#drop table ahorro;
-#drop table aporteahorro;
-#drop table retiro;
-#drop table beneficiario;
-#drop table usuario_detalle;
-#drop table credito;
-#drop table aportecredito;
-
-insert INTO usuario
-(password, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
-("$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.", "Mariana T.", "", "Femenino", "88223366", "mariana@gmail.com" , "101110222","2000-01-01");
-insert INTO usuario
-(password, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
-("$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.", "Julio Rodríguez", "", "Masculino", "88223366", "vjuliorc@gmail.com" , "1111111","2000-01-01");
-
-insert INTO usuario
-(password, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
-("$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.", "Isaac Ruiz", "Cartago", "Masculino", "88222266", "isaac@gmail.com" , "3333333","2004-03-02");
 
 CREATE TABLE `rol` (
   `id_rol` int PRIMARY KEY AUTO_INCREMENT,
@@ -51,11 +31,6 @@ CREATE TABLE `rol` (
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)  
   
 ) ;
-
-insert into rol (nombre, id_usuario) values ("ROLE_ADMIN", 1);
-insert into rol (nombre, id_usuario) values ("ROLE_ADMIN", 2);
-insert into rol (nombre, id_usuario) values ("ROLE_CLIENT", 3);
-
 
 /*Detalles del usuario que no son administradores */
 CREATE TABLE usuario_detalle (
@@ -74,14 +49,14 @@ CREATE TABLE usuario_detalle (
 CREATE TABLE credito (
     id_credito INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     id_usuario INT NOT NULL,
-    nombre VARCHAR(100) NOT NULL,
+    descripcion VARCHAR(100) NOT NULL,
     monto_solicitado DOUBLE NOT NULL,
     plazo INT NOT NULL,
     monto_actual DOUBLE NOT NULL,
     cuota DOUBLE NOT NULL,
     tasa DOUBLE NOT NULL,
-    estado INT NOT NULL, 
-    fecha_aprobacion DATE NOT NULL,
+    estado INT NOT NULL DEFAULT 0, 
+    fecha_aprobacion DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP NULL,
@@ -112,11 +87,6 @@ CREATE TABLE ahorro (
     deleted_at TIMESTAMP NULL,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
-
-insert into ahorro 
-(id_usuario, nombre, saldo_actual, cuota, interes_generado, tasa_interes) values
-(1, "prueba", 1, 2,3, 4 );
-
 
 CREATE TABLE retiro (
     id_retiro INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -151,9 +121,34 @@ CREATE TABLE beneficiario (
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 
-INSERT INTO credito (id_usuario, nombre, monto_solicitado, plazo, monto_actual, cuota, tasa, estado, fecha_aprobacion)
-VALUES
-    (1, 'Crédito Hipotecario', 150000.00, 240, 148500.00, 625.50, 5.5, 0, '2023-08-15'),
-    (1, 'Crédito de Consumo', 3000.00, 18, 2900.00, 180.00, 14.0, 0, '2023-09-25'),
-    (2, 'Crédito Personal', 5000.00, 24, 4800.00, 220.83, 12.0, 0, '2023-09-10'),
-    (2, 'Crédito Estudiantil', 8000.00, 36, 7800.00, 250.00, 7.5, 0, '2023-10-18');
+insert INTO usuario
+(password, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
+("$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.", "Mariana T.", "", "Femenino", "88223366", "mariana@gmail.com" , "101110222","2000-01-01");
+insert INTO usuario
+(password, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
+("$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.", "Julio Rodríguez", "", "Masculino", "88223366", "vjuliorc@gmail.com" , "1111111","2000-01-01");
+
+insert INTO usuario
+(password, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
+("$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.", "Isaac Ruiz", "Cartago", "Masculino", "88222266", "isaac@gmail.com" , "3333333","2004-03-02");
+
+insert into rol (nombre, id_usuario) values ("ROLE_ADMIN", 1);
+insert into rol (nombre, id_usuario) values ("ROLE_ADMIN", 2);
+insert into rol (nombre, id_usuario) values ("ROLE_CLIENT", 3);
+
+INSERT INTO ahorro (id_usuario, nombre, saldo_actual, cuota, interes_generado, tasa_interes) VALUES
+(3, "Ahorro Navidad", 5000.00, 200.00, 50.00, 3.5),
+(3, "Ahorro Vacaciones", 0.00, 300.00, 0.00, 4.0),  -- Saldo en 0
+(3, "Fondo de Emergencia", 12000.00, 500.00, 200.00, 5.0),
+(2, "Ahorro Estudiantil", 0.00, 150.00, 0.00, 3.2),  -- Saldo en 0
+(2, "Ahorro Meta Personal", 7000.00, 400.00, 100.00, 3.8);
+
+INSERT INTO credito (id_usuario, descripcion, monto_solicitado, plazo, monto_actual, cuota, tasa, estado, fecha_aprobacion) VALUES
+(3, 'Crédito Hipotecario', 150000.00, 240, 148500.00, 625.50, 5.5, 0, NULL), -- Pendiente
+(3, 'Crédito de Consumo', 3000.00, 18, 2900.00, 180.00, 14.0, 1, '2024-01-15'), -- Aprobado
+(3, 'Crédito Personal', 5000.00, 24, 4800.00, 220.83, 12.0, 2, '2023-10-10'), -- Rechazado
+(3, 'Crédito Estudiantil', 8000.00, 36, 7800.00, 250.00, 7.5, 1, '2024-02-05'), -- Aprobado
+(2, 'Crédito Vehicular', 20000.00, 60, 19500.00, 350.00, 6.0, 0, NULL), -- Pendiente
+(2, 'Crédito Empresarial', 50000.00, 120, 48000.00, 900.00, 5.2, 2, '2023-08-20'); -- Rechazado
+
+SELECT * FROM credito LEFT JOIN usuario ON credito.id_usuario = usuario.id_usuario;

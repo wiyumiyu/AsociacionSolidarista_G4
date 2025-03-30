@@ -51,7 +51,7 @@
                                 <td>[[${credito.montoActual}]]</td>
                                 <td>[[${credito.cuota}]]</td>
                                 <td>[[${credito.tasa}]]</td>
-                                <td>[[${credito.estado}]]</td>
+                                <td>[[${credito.estadoTexto}]]</td>
                                 <td>[[${credito.fechaAprobacion}]]</td>
                                 <td sec:authorize="hasRole('ROLE_ADMIN')">
                                     <th:block th:if="${credito.estado == 0}">
@@ -75,6 +75,51 @@
                 </div>
                 <div class="text-center p-2" th:if="${creditos == null or creditos.empty}">
                     <span>[[#{mp.lista.vacia}]]</span>
+                </div>
+            </div>
+        </section>
+
+        <section th:fragment="agregarCredito">
+            <div id="agregarCredito" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info text-white">
+                            <h5 class="modal-title">[[#{mp.ahorro.agregar}]]</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form th:action="@{/credito/guardar}" th:object="${creditos}" method="POST" class="was-validated"
+                              enctype="multipart/form-data">
+                            <div class="modal-body">
+
+                                <input type="hidden" th:if="*{idUsuario != null}" th:field="*{idUsuario}" name="idUsuario" id="idUsuario"/>
+                                <input type="hidden" value="0" name="montoActual" id="montoActual"/>
+                                <div class="mb-3">
+                                    <label for="descripcion">Descripción</label>
+                                    <input type="text" class="form-control" name="descripcion" required maxlength="100" id="descripcion" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="montoSolicitado">Monto Solicitado</label>
+                                    <input type="number" class="form-control" name="montoSolicitado" id="montoSolicitado" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="plazo">Plazo (meses)</label>
+                                    <input type="number" class="form-control" name="plazo" id="plazo" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cuota">Cuota</label>
+                                    <input type="number" class="form-control" name="cuota" id="cuota" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tasa">Tasa de Interés (%)</label>
+                                    <input type="number" class="form-control" name="tasa" id="tasa" required />
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>

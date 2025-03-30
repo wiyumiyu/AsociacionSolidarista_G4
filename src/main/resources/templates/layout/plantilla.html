@@ -98,7 +98,12 @@
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{/credito/listado}">
+                                <a th:href="@{/credito/listado}" sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <i class="icon ph-bold ph-credit-card"></i>
+                                    <span class="text">[[#{mp.lateral.creditos}]]</span>
+                                </a>
+                                <a th:href="@{/credito/listado/{idUsuario}(idUsuario=${session.idUsuario})}" 
+                                   sec:authorize="hasRole('ROLE_CLIENT') && !hasRole('ROLE_ADMIN')">
                                     <i class="icon ph-bold ph-credit-card"></i>
                                     <span class="text">[[#{mp.lateral.creditos}]]</span>
                                 </a>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.G4.AsociacionSolidarista.dao.CreditoDao;
+import com.G4.AsociacionSolidarista.domain.Ahorro;
 import java.util.Optional;
 
 @Service
@@ -51,5 +52,10 @@ public class CreditoServiceImpl implements CreditoService {
 //    public void delete(Credito credito) {
 //        creditoDao.deleteById(credito.getIdCredito());
 //    }
+
+    @Override
+    public List<Credito> buscarPorIdUsuario(Long idUsuario) {
+        return creditoDao.findByUsuario_idUsuario(idUsuario);
+    }
 
 }

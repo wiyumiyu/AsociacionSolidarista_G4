@@ -33,6 +33,13 @@ public class UsuarioDetailsServiceImpl implements UsuarioDetailsService, UserDet
         }
         session.removeAttribute("idUsuario");
         session.setAttribute("idUsuario", usuario.getIdUsuario());
+        session.setAttribute("nombre", usuario.getNombre());
+        session.setAttribute("username", usuario.getUsername());
+        session.setAttribute("cedula", usuario.getCedula());
+        session.setAttribute("genero", usuario.getGenero());
+        session.setAttribute("telefono", usuario.getTelefono());
+        session.setAttribute("direccion", usuario.getDireccion());
+        
         //Si está acá es porque existe el usuario... sacamos los roles que tiene
         var roles = new ArrayList<GrantedAuthority>();
         for (Rol rol : usuario.getRoles()) {   //Se sacan los roles

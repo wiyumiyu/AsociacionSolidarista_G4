@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="layout/plantilla :: head">
+        <title>Asobank</title>
+    </head>
+
+    <body>
+        <header th:replace="layout/plantilla :: header"></header>
+        <div th:replace="layout/plantilla :: barraLateral"></div>
+
+        <section>
+            <div class="contenidoTitulo">
+                <div class="container d-flex justify-content-between align-items-center px-5">
+                    <span class="fs-2" style="color: #757575;">[[#{mp.perfil.titulo}]]</span>
+
+                    <a th:href="@{/beneficiario/listado}" sec:authorize="hasRole('ROLE_ADMIN')"
+                       type="button" class="btn text-white" style="background-color: #6A1039">
+                        <i class="fa-solid fa-people-group"></i> [[#{mp.perfil.beneficiariosBoton}]]
+                    </a>
+                    <a th:href="@{/beneficiario/listado/{idUsuario}(idUsuario=${session.idUsuario})}" sec:authorize="hasRole('ROLE_CLIENT') && !hasRole('ROLE_ADMIN')"
+                       type="button" class="btn text-white" style="background-color: #6A1039">
+                        <i class="fa-solid fa-people-group"></i> [[#{mp.perfil.beneficiariosBoton}]]
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Seccion formulario -->
+        <section>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form method="POST" th:action="@{/usuario/guardarPerfil}" th:object="${usuario}"
+                          class="was-validated" enctype="multipart/form-data">
+                        <div id=details>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header d-flex align-items-center gap-3">
+                                                <a th:title='Volver' th:href="@{/}" style="background-color: #6A1039;" class="btn d-block text-white">
+                                                    <i class="fa-solid fa-arrow-left"></i>
+                                                </a>
+                                                <h4 class="my-0">[[#{mp.accion.editar}]]</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <input type="hidden" class="form-control" name="idUsuario" id="idUsuario"
+                                                       th:value="${session.idUsuario}" required />
+                                                <div class="mb-3">
+                                                    <label for="nombre">[[#{mp.beneficiario.nombre}]]</label>
+                                                    <input type="text" class="form-control" name="nombre" id="nombre"
+                                                           th:value="${session.nombre}" required />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="nombre">[[#{mp.usuario.correo}]]</label>
+                                                    <input type="text" class="form-control" name="username" id="username"
+                                                           th:value="${session.username}" required />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="nombre">[[#{mp.usuario.cedula}]]</label>
+                                                    <input type="text" class="form-control" name="cedula" id="cedula"
+                                                           th:value="${session.cedula}" required />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="nombre">[[#{mp.usuario.telefono}]]</label>
+                                                    <input type="text" class="form-control" name="telefono" id="telefono"
+                                                           th:value="${session.telefono}" required />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="nombre">[[#{mp.usuario.genero}]]</label>
+                                                    <select class="form-control" id="genero" name="genero" th:value="${session.genero}">
+                                                        <option th:value="Masculino">[[#{mp.usuario.male}]]</option>
+                                                        <option th:value="Femenino">[[#{mp.usuario.female}]]</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="nombre">[[#{mp.usuario.direccion}]]</label>
+                                                    <input type="text" class="form-control" name="direccion" id="direccion"
+                                                           th:value="${session.direccion}" required />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="nombre">[[#{mp.usuario.password}]]</label>
+                                                    <input type="password" class="form-control" name="password" id="password"
+                                                           th:value="${session.password}"/>
+                                                </div>
+
+                                                <div class="d-flex-center">
+                                                    <button type="submit" style="background-color: #6A1039;" class="btn btn-success w-100">
+                                                        <i class="fas fa-check"></i> [[#{mp.accion.guardar}]]
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Jquery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
+                integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
+        crossorigin="anonymous"></script>
+        <script src="script.js"></script>
+    </body>
+
+</html>

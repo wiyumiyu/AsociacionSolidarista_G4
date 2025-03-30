@@ -1,10 +1,14 @@
 package com.G4.AsociacionSolidarista.controller;
 
+import com.G4.AsociacionSolidarista.domain.Beneficiario;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 
 @Controller
 public class IndexController {
@@ -22,17 +26,36 @@ public class IndexController {
 //
 //        return "redirect:/ahorro/listado";
 //    }
-    
-   
     @RequestMapping("/")
     public String index(Model model, HttpSession session) {
 
         //model.addAttribute("attribute", "value");
-        Long idUsuario  = (Long)session.getAttribute("idUsuario");
-
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
 
         return "index";
-    } 
+    }
     
-    
+    @GetMapping("/logout")
+    public String cerrarSesion(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
+
+
+    @GetMapping("/perfil/{idUsuario}")
+    public String getPerfil(@PathVariable Long idUsuario, Model model) {
+
+        /*List<Beneficiario> beneficiarios = beneficiarioService.getBeneficiariosByIdUsuario(idUsuario);
+
+        Beneficiario beneficiario = new Beneficiario();
+        beneficiario.setIdUsuario(idUsuario);
+
+        model.addAttribute("beneficiarios", beneficiarios);
+        model.addAttribute("beneficiario", beneficiario);
+        */
+        model.addAttribute("idUsuario", idUsuario);
+
+        return "/profile";
+    }
+
 }

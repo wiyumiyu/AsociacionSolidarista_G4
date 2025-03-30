@@ -12,6 +12,14 @@ public interface AhorroService  {
     //get ahorros por cliente
     public List<Ahorro> getAhorrosByIdUsuario(Long idUsuario);
     
+    
+    public List<Ahorro> buscarPorSaldoActual(Long saldoActual);    
+    public List<Ahorro> buscarPorSaldoActualMayorA(Long saldoActual);    
+    
+    public List<Ahorro> buscarPorUsuarioYSaldo(Long idUsuario, Long saldoActual);    
+    
+    public List<Ahorro> buscarPorIdUsuarioAndSaldoActualMayorA(Long idUsuario, Long saldoActual);
+    
    // Se obtiene un Ahorro, a partir del id de un ahorro
     public Ahorro getAhorro(Ahorro ahorro);
     

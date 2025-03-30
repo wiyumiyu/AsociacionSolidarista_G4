@@ -35,6 +35,9 @@ public class AhorroServiceImpl implements AhorroService {
         return lista;
     }
 
+    
+    
+    
     @Override
     @Transactional(readOnly = true)
     public Ahorro getAhorro(Ahorro ahorro) {
@@ -52,5 +55,28 @@ public class AhorroServiceImpl implements AhorroService {
     public void delete(Ahorro ahorro) {
         ahorroDao.deleteById(ahorro.getIdAhorro());
     }
+
+    @Override
+    public List<Ahorro> buscarPorUsuarioYSaldo(Long idUsuario, Long saldoActual) {
+        return ahorroDao.findByIdUsuarioAndSaldoActual(idUsuario, saldoActual);
+    }
+
+    @Override
+    public List<Ahorro> buscarPorIdUsuarioAndSaldoActualMayorA(Long idUsuario, Long saldoActual) {
+        return ahorroDao.findByIdUsuarioAndSaldoActualGreaterThan(idUsuario, saldoActual);
+    }
+
+    @Override
+    public List<Ahorro> buscarPorSaldoActual(Long saldoActual) {
+        return ahorroDao.findBySaldoActual(saldoActual);
+    }
+
+    @Override
+    public List<Ahorro> buscarPorSaldoActualMayorA(Long saldoActual) {
+        return ahorroDao.findBySaldoActualGreaterThan(saldoActual);
+    }
+    
+    
+        
 
 }

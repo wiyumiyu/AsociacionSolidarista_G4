@@ -34,9 +34,13 @@ public class AhorroController {
 
     @RequestMapping("/listado")
     public String page(Model model) {
-        var ahorros = ahorroService.getAhorros(true);
+        //var ahorros = ahorroService.getAhorros(true);
         List<Usuario> usuarios = usuarioDetailsService.getUsuarios(true);
 
+        Long saldoActual = 0L; // Siempre será 0
+         
+        List<Ahorro> ahorros = ahorroService.buscarPorSaldoActualMayorA(saldoActual);        
+        
         model.addAttribute("ahorros", ahorros);
         model.addAttribute("totalAhorros", ahorros.size());
 
@@ -49,7 +53,9 @@ public class AhorroController {
     @GetMapping("/listado/{idUsuario}")
     public String getAhorrosByUsuario(@PathVariable Long idUsuario, Model model) {
 
-        List<Ahorro> ahorros = ahorroService.getAhorrosByIdUsuario(idUsuario);
+        Long saldoActual = 0L; // Siempre será 0
+         
+        List<Ahorro> ahorros = ahorroService.buscarPorIdUsuarioAndSaldoActualMayorA(idUsuario, saldoActual);
 
         Ahorro ahorro = new Ahorro();
         ahorro.setIdUsuario(idUsuario);
@@ -63,12 +69,33 @@ public class AhorroController {
 
     @RequestMapping("/historial")
     public String historial(Model model) {
-        var ahorros = ahorroService.getAhorros(false);
+        //var ahorros = ahorroService.getAhorros(false);
+        Long saldoActual = 0L; // Siempre será 0
+        List<Ahorro> ahorros = ahorroService.buscarPorSaldoActual(saldoActual);        
+        
         model.addAttribute("ahorros", ahorros);
         model.addAttribute("totalAhorros", ahorros.size());
 
         return "/ahorro/historial";
     }
+    
+    @GetMapping("/historial/{idUsuario}")
+    public String getHistorialByUsuario(@PathVariable Long idUsuario, Model model) {
+        
+        Long saldoActual = 0L; // Siempre será 0
+        
+        List<Ahorro> ahorros = ahorroService.buscarPorUsuarioYSaldo(idUsuario,saldoActual);
+        
+        Ahorro ahorro = new Ahorro();
+        ahorro.setIdUsuario(idUsuario);
+
+        model.addAttribute("ahorro", ahorro);
+        model.addAttribute("idUsuario", idUsuario);
+        model.addAttribute("ahorros", ahorros);
+        model.addAttribute("totalAhorros", ahorros.size());
+        return "/ahorro/historial";
+    }   
+
 
     @PostMapping("/guardar")
     public String ahorroGuardar(Ahorro ahorro, Authentication auth) {

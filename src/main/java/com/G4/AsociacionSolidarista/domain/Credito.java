@@ -17,7 +17,7 @@ public class Credito implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_credito") 
     private Long idCredito; // lo interpreta como id_credito automaticamente
-    //private Long idUsuario; // lo interpreta como id_credito automaticamente
+    private Long idUsuario; // lo interpreta como id_credito automaticamente
     private String descripcion;
     private Long montoSolicitado;
     private int plazo;
@@ -29,17 +29,16 @@ public class Credito implements Serializable{
     private String createdAt;
     private String updatedAt;
     private String deletedAt;
-    
-    @ManyToOne
-    @JoinColumn(name="id_usuario")
-    public Usuario usuario;
 
+    @ManyToOne
+    @JoinColumn(name = "idUsuario", insertable = false, updatable = false)
+    private Usuario usuario;
     
     public Credito(){
     }
 
-    public Credito( String descripcion, Long montoSolicitado, int plazo, Long montoActual, Long cuota, Long tasa, int estado, String fechaAprobacion, String createdAt, String updatedAt, String deletedAt) {
-        //this.idUsuario = idUsuario;
+    public Credito(Long idUsuario, String descripcion, Long montoSolicitado, int plazo, Long montoActual, Long cuota, Long tasa, int estado, String fechaAprobacion, String createdAt, String updatedAt, String deletedAt) {
+        this.idUsuario = idUsuario;
         this.descripcion = descripcion;
         this.montoSolicitado = montoSolicitado;
         this.plazo = plazo;

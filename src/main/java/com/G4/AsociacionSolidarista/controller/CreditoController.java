@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,10 +51,7 @@ public class CreditoController {
 
         // Crear un nuevo crédito con el idUsuario preestablecido
         Credito credito = new Credito();
-        Usuario usuario = new Usuario();
-        usuario.setIdUsuario(idUsuario);
-        credito.setUsuario(usuario);
-
+        credito.setIdUsuario(idUsuario);
         model.addAttribute("creditos", creditos);
         model.addAttribute("totalCreditos", creditos.size());
         model.addAttribute("usuarios", listaUsuarios);
@@ -82,23 +80,21 @@ public class CreditoController {
 //        creditoService.save(credito);
 //        return "redirect:/credito/listado";
 //    }
-
     @PostMapping("/guardar")
-    public String creditoGuardar(Credito credito, @RequestParam Long idUsuario) {
-
-        // Buscar el Usuario por ID
-        Usuario usuario = usuarioDetailsService.getUsuarioByIdUsuario(idUsuario);
-
-        // Establecer el Usuario en el objeto Credito
-        credito.setUsuario(usuario);
-
-        // Asignar fecha de creación
+    public String creditoGuardar(Credito credito, Authentication auth) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         credito.setCreatedAt(LocalDateTime.now().format(formatter));
-
-        // Guardar el Crédito
         creditoService.save(credito);
-        return "redirect:/credito/listado";
+
+        // Verificar si el usuario es admin
+        boolean isAdmin = auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+        if (isAdmin) {
+            return "redirect:/credito/listado";
+        } else {
+            return "redirect:/credito/listado/" + credito.getIdUsuario();
+        }
     }
 
 //

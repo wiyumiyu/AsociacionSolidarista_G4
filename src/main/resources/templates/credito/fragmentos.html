@@ -90,8 +90,7 @@
                         <form th:action="@{/credito/guardar}" th:object="${credito}" method="POST" class="was-validated"
                               enctype="multipart/form-data">
                             <div class="modal-body">
-                                
-                                 <input type="hidden" name="idUsuario" id="idUsuario" th:value="${credito.usuario.idUsuario}" />
+                                  <input type="hidden" th:field="*{idUsuario}" sec:authorize="!hasRole('ROLE_ADMIN')" />
                                 <input type="hidden" value="0" name="montoActual" id="montoActual"/>
                                 <input type="hidden" value="0" name="estado" id="estado"/>
                                 <div class="mb-3">

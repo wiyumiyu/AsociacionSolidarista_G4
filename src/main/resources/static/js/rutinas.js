@@ -5,8 +5,8 @@ function readURL(input) {
         var reader = new FileReader();
         reader.onload = function (e) {
             $('#blah')
-                    .attr('src', e.target.result)
-                    .height(200);
+                .attr('src', e.target.result)
+                .height(200);
         };
         reader.readAsDataURL(input.files[0]);
     }
@@ -41,5 +41,28 @@ function calcularCuota() {
         currency: 'CRC',
         minimumFractionDigits: 2
     });
-    
+
 }
+
+function calcularAhorro() {
+    const objetivo = parseFloat(document.getElementById('objetivo').value);
+    const plazoAnios = parseInt(document.getElementById('plazoAnios').value);
+    const tasaAnual = parseFloat(document.getElementById('tasaInteresCalculo').value);
+
+    if (isNaN(objetivo) || isNaN(plazoAnios) || isNaN(tasaAnual) || objetivo <= 0 || plazoAnios <= 0) {
+        document.getElementById('resultadoCuota').innerText = "Ingrese valores válidos.";
+        return;
+    }
+
+    const gananciaTotal = tasaAnual * plazoAnios / 100; // por ejemplo 10% anual x 2 años = 20%
+    const ahorroNecesario = objetivo / (1 + gananciaTotal); // ahorro total considerando la ganancia
+    const meses = plazoAnios * 12;
+    const cuotaMensual = ahorroNecesario / meses;
+
+    document.getElementById('resultadoCuota').innerText = cuotaMensual.toLocaleString('es-CR', {
+        style: 'currency',
+        currency: 'CRC',
+        minimumFractionDigits: 2
+    });
+}
+

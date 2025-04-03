@@ -12,11 +12,18 @@
     <section th:fragment="botonesAgregar">
         <div class="contenidoTitulo"  >
             <div class="container d-flex justify-content-between align-items-center">
-                <span class="fs-2" style="color: #757575;" th:text="#{mp.ahorro.listado}"></span>
-                <button id="btnAgregar" type="button" class="btn text-white" style="background-color: #6A1039"
+                <span class="fs-2" style="color: #757575; margin-left: 200px;" th:text="#{mp.ahorro.listado}"></span>
+                <div class="d-flex">
+                    <button id="btnAgregar" type="button" class="btn text-white" style="background-color: #6A1039"
                         data-bs-toggle="modal" data-bs-target="#agregarAhorro">
                     <i class="fas fa-plus"></i>[[#{mp.ahorro.agregar}]]
                 </button>
+                    <!-- Nuevo botón para simular ahorro -->
+                    <button id="btnCalcularAhorro" type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                        data-bs-target="#modalCalculadora" style="margin-left: 20px;">
+                        [[#{mp.ahorro.calcular}]]
+                    </button>
+                </div> 
             </div>
         </div>
     </section>
@@ -258,6 +265,43 @@
             </div>
         </div>
     </section>
+
+    <section th:fragment="modalCalculadora">
+        <div id="modalCalculadora" class="modal fade" tabindex="-1" aria-labelledby="calculadoraLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header text-white" style="background-color: #6A1039;">
+                        <h5 class="modal-title" id="calculadoraLabel">[[#{mp.ahorro.calculadora}]]</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="objetivo" class="form-label">[[#{mp.ahorro.objetivo}]]</label>
+                            <input type="number" class="form-control" id="objetivo" name="objetivo" placeholder="₡">
+                        </div>
+                        <div class="mb-3">
+                            <label for="plazoAnios" class="form-label">[[#{mp.ahorro.plazoAnios}]]</label>
+                            <input type="number" class="form-control" id="plazoAnios" name="plazoAnios">
+                        </div>
+                        <div class="mb-3">
+                            <label for="tasaInteresCalculo" class="form-label">[[#{mp.ahorro.tasa}]](%)</label>
+                            <input type="number" class="form-control" id="tasaInteresCalculo" name="tasaInteresCalculo" step="0.01">
+                        </div>
+                        <div class="mt-4">
+                            <button type="button" class="btn btn-primary w-100" onclick="calcularAhorro()"
+                            style="background-color: #313C61;">[[#{mp.ahorro.calcular}]]</button>
+                        </div>
+                        <div class="mt-3">
+                            <h5>[[#{mp.ahorro.cuotaMensual}]]</h5>
+                            <p id="resultadoCuota" class="fs-4">₡0.00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 </body>
 
 </html>

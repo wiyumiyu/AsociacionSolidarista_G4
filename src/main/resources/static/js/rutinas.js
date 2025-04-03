@@ -21,3 +21,25 @@ function addCard(formulario) {
     $("#resultsBlock").load(url);
 }
 
+
+function calcularCuota() {
+    const monto = parseFloat(document.getElementById('calculoMonto').value);
+    const plazo = parseInt(document.getElementById('calculoPlazo').value);
+    const tasa = parseFloat(document.getElementById('calculoTasa').value);
+
+    if (isNaN(monto) || isNaN(plazo) || isNaN(tasa) || plazo <= 0) {
+        document.getElementById('resultadoCuota').innerText = "Ingrese valores válidos.";
+        return;
+    }
+
+    const interes = monto * (tasa / 100); // interés total anual
+    const totalPagar = monto + interes;
+    const cuota = totalPagar / plazo;
+
+    document.getElementById('resultadoCuota').innerText = cuota.toLocaleString('es-CR', {
+        style: 'currency',
+        currency: 'CRC',
+        minimumFractionDigits: 2
+    });
+    
+}

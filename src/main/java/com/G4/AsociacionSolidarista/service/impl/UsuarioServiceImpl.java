@@ -1,9 +1,9 @@
 package com.G4.AsociacionSolidarista.service.impl;
 
 import com.G4.AsociacionSolidarista.dao.UsuarioDao;
-import com.G4.AsociacionSolidarista.domain.Rol;
 import com.G4.AsociacionSolidarista.domain.Usuario;
 import com.G4.AsociacionSolidarista.service.UsuarioService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +18,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     //@Autowired
     //private RolDao rolDao;
 
-    /* @Override
+    @Override
     @Transactional(readOnly = true)
     public List<Usuario> getUsuarios(boolean activos) {
         var lista = usuarioDao.findAll();
@@ -27,7 +27,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         return lista;
     }
-
+/* 
     @Override
     @Transactional
     public List<Usuario> getUsuariosByIdUsuario(Long idUsuario) {

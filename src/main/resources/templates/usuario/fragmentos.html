@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:replace="~{layout/plantilla :: head}">
+</head>
+
+<body>
+    <!-- Sección para crear el botón de agregar y texto alineado a la izquierda -->
+    <section th:fragment="botonesAgregar">
+        <div class="contenidoTitulo"  >
+            <div class="container d-flex justify-content-between align-items-center">
+                <span class="fs-2" style="color: #757575" th:text="#{mp.usuario.titulo}"></span>
+                <div class="d-flex">
+                    <button id="btnAgregar" type="button" class="btn text-white" style="background-color: #6A1039"
+                        data-bs-toggle="modal" data-bs-target="#agregarUsuario">
+                        <i class="fas fa-plus"></i>[[#{mp.ahorro.agregar}]]
+                    </button>
+                </div> 
+            </div>
+        </div>
+    </section>
+
+    <!-- 3 Sección principal para mostrar la informaccion de la entidad usuario -->
+    <section th:fragment="listadoUsuariosActivo" id="usuarios">
+        <div class="contenido">
+            <div th:if="${usuarios != null and !usuarios.empty}">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>[[#{mp.usuario.nombre}]]</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="usuario, contador : ${usuarios}">
+                            <td>[[${contador.count}]]</td>
+                            <td>[[${usuario.nombre}]]</td>
+                            <td>
+                                <a sec:authorize="hasRole('ROLE_ADMIN')"
+                                    th:href="@{/usuario/eliminar/}+${usuario.idUsuario}" class="btn text-white"
+                                    style="background-color: #A4613A">
+                                    <i class="fas fa-trash"></i></a>
+                                <a th:href="@{/usuario/modificar/}+${usuario.idUsuario}" class="btn text-white"
+                                    style="background-color: #313C61">
+                                    <i class="fas fa-pencil"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center p-2" th:if="${usuarios == null or usuarios.empty}">
+                <span>[[#{mp.lista.vacia}]]</span>
+            </div>
+        </div>
+    </section>
+
+
+    <section th:fragment="agregarUsuario">
+        <div id="agregarUsuario" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title">[[#{mp.ahorro.agregar}]]</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form th:action="@{/usuario/guardar}" th:object="${usuario}" method="POST" class="was-validated"
+                        enctype="multipart/form-data">
+                        <div class="modal-body">
+
+                            <!--<input type="hidden" class="form-control" name="idUsuario" id="idUsuario" />-->
+                            <div class="mb-3" sec:authorize="hasRole('ROLE_ADMIN')">
+                                <label for="usuario.idUsuario">[[#{mp.beneficiario.usuario}]]</label>
+                                <select class="form-control" th:field="*{idUsuario}" id="idUsuario">
+                                    <option th:each="u : ${usuarios}" th:value="${u.idUsuario}"
+                                        name="usuario.idUsuario">[[${u.nombre}]]</option>
+                                </select>
+                            </div>
+
+                            <input type="hidden" th:field="*{idUsuario}" sec:authorize="!hasRole('ROLE_ADMIN')" />
+
+                            <div class="mb-3">
+                                <label for="nombre">[[#{mp.usuario.nombre}]]</label>
+                                <input type="text" class="form-control" name="nombre" required="true" maxlength="100" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="saldoActual">[[#{mp.usuario.montoNuevo}]]</label>
+                                <input type="number" class="form-control" name="saldoActual" id="saldoActual"
+                                    required="true" />
+                                <div id="errorsaldoActual" class="text-danger mt-2" style="display: none;">
+                                    Por favor, ingrese un número válido.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cuota">[[#{mp.usuario.cuota}]]</label>
+                                <input type="number" class="form-control" name="cuota" id="cuota" required="true" />
+                                <div id="errorcuota" class="text-danger mt-2" style="display: none;">
+                                    Por favor, ingrese un número válido.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="interesGenerado">[[#{mp.usuario.interesGenerado}]]</label>
+                                <input type="number" class="form-control" name="interesGenerado" id="interesGenerado"
+                                    required="true" />
+                                <div id="errorinteresGenerado" class="text-danger mt-2" style="display: none;">
+                                    Por favor, ingrese un número válido.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="tasaInteres">[[#{mp.usuario.tasaInteres}]]</label>
+                                <input type="number" class="form-control" name="tasaInteres" id="tasaInteres"
+                                    required="true" />
+                                <div id="errortasaInteres" class="text-danger mt-2" style="display: none;">
+                                    Por favor, ingrese un número válido.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section th:fragment="editarUsuario">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <form method="POST" th:action="@{/usuario/guardar}" th:object="${usuario}" class="was-validated"
+                    enctype="multipart/form-data">
+                    <input type="hidden" name="idUsuario" th:field="*{idUsuario}" />
+                    <input type="hidden" th:field="*{idUsuario}" name="idUsuario" id="idUsuario" />
+                    <input type="hidden" th:field="*{saldoActual}" name="saldoActual" id="saldoActual" />
+                    <input type="hidden" th:field="*{interesGenerado}" name="interesGenerado" id="interesGenerado" />
+                    <input type="hidden" th:field="*{tasaInteres}" name="tasaInteres" id="tasaInteres" />
+                    <input type="hidden" th:field="*{createdAt}" name="createdAt" id="createdAt" />
+
+                    <div id=details>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header d-flex align-items-center gap-3">
+                                            <a th:title='Volver' th:href="@{/usuario/listado}"
+                                                style="background-color: #6A1039;" class="btn d-block text-white">
+                                                <i class="fa-solid fa-arrow-left"></i>
+                                            </a>
+                                            <h4 class="my-0">[[#{mp.accion.editar}]]</h4>
+                                        </div>
+                                        <div class="card-body">
+
+
+                                            <div class="mb-3">
+                                                <label for="nombre">[[#{mp.usuario.nombre}]]</label>
+                                                <input type="text" class="form-control" th:value="${usuario.nombre}"
+                                                    name="nombre" required="true" maxlength="100" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="cuota">[[#{mp.usuario.cuota}]]</label>
+                                                <input type="number" class="form-control" th:value="${usuario.cuota}"
+                                                    name="cuota" id="cuota" required="true" />
+                                                <div id="errorcuota" class="text-danger mt-2" style="display: none;">
+                                                    Por favor, ingrese un número válido.
+                                                </div>
+                                            </div>
+                                            <!--                                                <div class="mb-3">
+                                                                                                        <label for="interesGenerado">[[#{mp.usuario.interesGenerado}]]</label>
+                                                                                                        <input type="number" class="form-control" name="interesGenerado" id="interesGenerado" required="true" />
+                                                                                                        <div id="errorinteresGenerado" class="text-danger mt-2" style="display: none;">
+                                                                                                            Por favor, ingrese un número válido.
+                                                                                                        </div>
+                                                                                                    </div>-->
+                                            <!--                                                <div class="mb-3">
+                                                                                                        <label for="tasaInteres">[[#{mp.usuario.tasaInteres}]]</label>
+                                                                                                        <input type="number" class="form-control" name="tasaInteres" id="tasaInteres" required="true" />
+                                                                                                        <div id="errortasaInteres" class="text-danger mt-2" style="display: none;">
+                                                                                                            Por favor, ingrese un número válido.
+                                                                                                        </div>
+                                                                                                    </div>-->
+
+                                            <div class="col-md-12 d-flex justify-content-between gap-3">
+                                                <button type="submit" style="background-color: #6A1039;"
+                                                    class="btn btn-success w-100">
+                                                    <i class="fas fa-check"></i> [[#{mp.accion.guardar}]]
+                                                </button>
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/usuario/liquidar/}+*{idUsuario}"
+                                                    class="d-block btn btn-warning w-100">
+                                                    <i class="fa-solid fa-hourglass-end"></i> [[#{mp.accion.liquidar}]]
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3 Sección principal para mostrar la informaccion de la entidad usuario -->
+    <section th:fragment="listadoUsuariosInactivo" id="usuarios">
+        <div class="contenido">
+            <div th:if="${usuarios != null and !usuarios.empty}">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>[[#{mp.usuario.nombre}]]</th>
+                            <th>[[#{mp.usuario.saldoActual}]]</th>
+                            <th>[[#{mp.usuario.cuota}]]</th>
+                            <th>[[#{mp.usuario.interesGenerado}]]</th>
+                            <th>[[#{mp.usuario.tasaInteres}]]</th>
+                            <th>[[#{mp.usuario.creacion}]]</th>
+                            <th>[[#{mp.usuario.deletedAt}]]</th>
+                            <!--<th></th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="usuario, contador : ${usuarios}">
+                            <td>[[${contador.count}]]</td>
+                            <td>[[${usuario.nombre}]]</td>
+                            <td>[[${usuario.saldoActual}]]</td>
+                            <td>[[${usuario.cuota}]]</td>
+                            <td>[[${usuario.interesGenerado}]]</td>
+                            <td>[[${usuario.tasaInteres}]]%</td>
+                            <td th:text="${usuario.deletedAt != null ? usuario.deletedAt.substring(0,10) : ''}"></td>
+                            <td th:text="${usuario.deletedAt != null ? usuario.deletedAt.substring(0,10) : ''}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center p-2" th:if="${usuarios == null or usuarios.empty}">
+                <span>[[#{mp.lista.vacia}]]</span>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="layout/plantilla :: head">
+        <title>Asobank</title>
+    </head>
+
+    <body>
+        <header th:replace="layout/plantilla :: header"></header>
+        <div th:replace="layout/plantilla :: barraLateral"></div>
+
+        <section th:replace="usuario/fragmentos :: botonesAgregar" />
+
+        <div class="contenidoTabs">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/usuario/listado}">[[#{mp.usuario.titulo}]]</a>
+                </li>
+            </ul>
+        </div>
+
+        <section th:replace="usuario/fragmentos :: listadoUsuariosActivo" />
+        <section th:replace="usuario/fragmentos :: agregarUsuario" />
+        
+        <!-- Jquery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
+                integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
+        crossorigin="anonymous"></script>
+        <script src="script.js"></script>
+    </body>
+
+</html>

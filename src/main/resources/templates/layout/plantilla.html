@@ -70,13 +70,13 @@
 
             <!-- Contenedor Sidebar-->
             <div class="sidebar">
-                <div class="menu-btn">
+<!--                <div class="menu-btn">
                     <i class="ph-bold ph-caret-left"></i>
-                </div>
+                </div>-->
                 <div class="head">
-                    <div class="logo-img">
+                    <a th:href="@{/}" class="logo-img">
                         <img th:src="@{/images/Logo.png}" alt="" />
-                    </div>
+                    </a>
                 </div>
                 <div class="nav">
                     <div class="menu">
@@ -106,9 +106,9 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <i class="icon ph-bold ph-hard-drives"></i>
-                                    <span class="text">[[#{mp.lateral.datosSistema}]]</span>
+                                <a th:href="@{/usuario/listado}" sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <i class="fa-solid fa-users-gear"></i>
+                                    <span class="text">[[#{mp.lateral.usuarios}]]</span>
                                 </a>
                             </li>
                         </ul>
@@ -116,7 +116,7 @@
                     <div class="menu">
                         <ul>
                             <li>
-                                <a href="#">
+                                <a th:href="@{/perfil/{idUsuario}(idUsuario=${session.idUsuario})}">
                                     <i class="icon ph-bold ph-gear"></i>
                                     <span class="text">[[#{mp.lateral.configuracion}]]</span>
                                 </a>

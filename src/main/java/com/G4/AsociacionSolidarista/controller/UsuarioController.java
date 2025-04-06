@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.G4.AsociacionSolidarista.service.UsuarioService;
 import com.G4.AsociacionSolidarista.service.UsuarioDetailsService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -18,11 +20,12 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioDetailsService usuarioDetailsService;
-/*
+
     @RequestMapping("/listado")
     public String page(Model model) {
-        var usuarios = usuarioService.getUsuarios(true);
+        //List<Usuario> = usuarioService.getUsuarios(true);
         List<Usuario> usuarios = usuarioDetailsService.getUsuarios(true);
+        //List<Usuario> usuarios = usuarioDetailsService.getUsuarios(true);
 
         model.addAttribute("usuarios", usuarios);
 
@@ -30,7 +33,6 @@ public class UsuarioController {
 
         return "/usuario/listado";
     }
-*/
 
     @PostMapping("/guardarPerfil")
     public String usuarioGuardar(Usuario usuario, Authentication auth) {

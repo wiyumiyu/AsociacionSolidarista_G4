@@ -78,51 +78,32 @@
                         <form th:action="@{/usuario/guardar}" th:object="${usuario}" method="POST" class="was-validated"
                               enctype="multipart/form-data">
                             <div class="modal-body">
-                                <!--<input type="hidden" class="form-control" name="idUsuario" id="idUsuario" />-->
-                                <div class="mb-3" sec:authorize="hasRole('ROLE_ADMIN')">
-                                    <label for="usuario.idUsuario">[[#{mp.beneficiario.usuario}]]</label>
-                                    <select class="form-control" th:field="*{idUsuario}" id="idUsuario">
-                                        <option th:each="u : ${usuarios}" th:value="${u.idUsuario}"
-                                                name="usuario.idUsuario">[[${u.nombre}]]</option>
-                                    </select>
-                                </div>
-
-                                <input type="hidden" th:field="*{idUsuario}" sec:authorize="!hasRole('ROLE_ADMIN')" />
-
                                 <div class="mb-3">
                                     <label for="nombre">[[#{mp.usuario.nombre}]]</label>
-                                    <input type="text" class="form-control" name="nombre" required="true" maxlength="100" />
+                                    <input type="text" class="form-control" name="nombre" required="true" />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="saldoActual">[[#{mp.usuario.montoNuevo}]]</label>
-                                    <input type="number" class="form-control" name="saldoActual" id="saldoActual"
-                                           required="true" />
-                                    <div id="errorsaldoActual" class="text-danger mt-2" style="display: none;">
-                                        Por favor, ingrese un número válido.
-                                    </div>
+                                    <label for="username">[[#{mp.usuario.correo}]]</label>
+                                    <input type="text" class="form-control" name="username" required="true" />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="cuota">[[#{mp.usuario.cuota}]]</label>
-                                    <input type="number" class="form-control" name="cuota" id="cuota" required="true" />
-                                    <div id="errorcuota" class="text-danger mt-2" style="display: none;">
-                                        Por favor, ingrese un número válido.
-                                    </div>
+                                    <label for="cedula">[[#{mp.usuario.cedula}]]</label>
+                                    <input type="text" class="form-control" name="cedula" required="true" />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="interesGenerado">[[#{mp.usuario.interesGenerado}]]</label>
-                                    <input type="number" class="form-control" name="interesGenerado" id="interesGenerado"
-                                           required="true" />
-                                    <div id="errorinteresGenerado" class="text-danger mt-2" style="display: none;">
-                                        Por favor, ingrese un número válido.
-                                    </div>
+                                    <label for="nombre">[[#{mp.usuario.genero}]]</label>
+                                    <select class="form-control" id="genero" name="genero">
+                                        <option th:value="Masculino">[[#{mp.usuario.male}]]</option>
+                                        <option th:value="Femenino">[[#{mp.usuario.female}]]</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="tasaInteres">[[#{mp.usuario.tasaInteres}]]</label>
-                                    <input type="number" class="form-control" name="tasaInteres" id="tasaInteres"
-                                           required="true" />
-                                    <div id="errortasaInteres" class="text-danger mt-2" style="display: none;">
-                                        Por favor, ingrese un número válido.
-                                    </div>
+                                    <label for="telefono">[[#{mp.usuario.telefono}]]</label>
+                                    <input type="text" class="form-control" name="telefono" required="true" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="direccion">[[#{mp.usuario.direccion}]]</label>
+                                    <input type="text" class="form-control" name="direccion" required="true" />
                                 </div>
                             </div>
                             <div class="modal-footer">

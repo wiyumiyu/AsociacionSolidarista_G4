@@ -38,7 +38,12 @@ public class UsuarioController {
 
     @PostMapping("/guardar")
     public String usuarioGuardarPerfil(Usuario usuario, Authentication auth, HttpSession session) {
-        usuarioService.save(usuario, false);
+        
+        if (usuario.getIdUsuario() != null) {
+            usuarioService.save(usuario, false);
+        } else {
+            usuarioService.save(usuario, true);
+        }
         
         if (session.getAttribute("idUsuario") != usuario.getIdUsuario()) {
             return "redirect:/usuario/listado";

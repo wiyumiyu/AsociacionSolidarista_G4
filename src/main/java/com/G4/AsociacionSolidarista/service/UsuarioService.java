@@ -18,7 +18,7 @@ public interface UsuarioService {
     public void save(Usuario usuario, boolean crearRolUser);
     
     // Se elimina el usuario que tiene el id pasado por parámetro
- //   public void delete(Usuario usuario);    
+    public void delete(Usuario usuario);    
     
     //get usuarios por cliente
     //public List<Usuario> getUsuariosByIdUsuario(Long idUsuario);

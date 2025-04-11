@@ -29,7 +29,10 @@ public class IndexController {
     @RequestMapping("/")
     public String index(Model model, HttpSession session) {
 
-        //model.addAttribute("attribute", "value");
+        if (session.getAttribute("idUsuario") == null) {
+            return "redirect:/login";
+        }
+        
         Long idUsuario = (Long) session.getAttribute("idUsuario");
 
         return "index";

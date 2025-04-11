@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <form method="POST" th:action="@{/usuario/guardarPerfil}" th:object="${usuario}"
+                    <form method="POST" th:action="@{/usuario/guardar}" th:object="${usuario}"
                           class="was-validated" enctype="multipart/form-data">
                         <div id=details>
                             <div class="container">
@@ -70,9 +70,13 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="nombre">[[#{mp.usuario.genero}]]</label>
-                                                    <select class="form-control" id="genero" name="genero" th:value="${session.genero}">
+                                                    <select th:if="${session.genero} == 'Masculino'" class="form-control" id="genero" name="genero" th:value="${session.genero}">
                                                         <option th:value="Masculino">[[#{mp.usuario.male}]]</option>
                                                         <option th:value="Femenino">[[#{mp.usuario.female}]]</option>
+                                                    </select>
+                                                    <select th:if="${session.genero} == 'Femenino'" class="form-control" id="genero" name="genero" th:value="${session.genero}">
+                                                        <option th:value="Femenino">[[#{mp.usuario.female}]]</option>
+                                                        <option th:value="Masculino">[[#{mp.usuario.male}]]</option>
                                                     </select>
                                                 </div>
                                                 <div class="mb-3">
@@ -85,7 +89,6 @@
                                                     <input type="password" class="form-control" name="password" id="password"
                                                            th:value="${session.password}"/>
                                                 </div>
-
                                                 <div class="d-flex-center">
                                                     <button type="submit" style="background-color: #6A1039;" class="btn btn-success w-100">
                                                         <i class="fas fa-check"></i> [[#{mp.accion.guardar}]]

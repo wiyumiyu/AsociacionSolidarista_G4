@@ -5,10 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.G4.AsociacionSolidarista.service.UsuarioService;
 import com.G4.AsociacionSolidarista.service.UsuarioDetailsService;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -34,14 +36,18 @@ public class UsuarioController {
         return "/usuario/listado";
     }
 
-    @PostMapping("/guardarPerfil")
-    public String usuarioGuardar(Usuario usuario, Authentication auth) {
+    @PostMapping("/guardar")
+    public String usuarioGuardarPerfil(Usuario usuario, Authentication auth, HttpSession session) {
         usuarioService.save(usuario, false);
         
+        if (session.getAttribute("idUsuario") != usuario.getIdUsuario()) {
+            return "redirect:/usuario/listado";
+        }
+
         return "redirect:/logout";
     }
 
-   /* @GetMapping("/eliminar/{idUsuario}")
+    @GetMapping("/eliminar/{idUsuario}")
     public String usuarioEliminar(Usuario usuario) {
         usuarioService.delete(usuario);
         return "redirect:/usuario/listado";
@@ -53,5 +59,5 @@ public class UsuarioController {
         model.addAttribute("usuario", usuario);
         return "/usuario/modifica";
     }
-   */
+
 }

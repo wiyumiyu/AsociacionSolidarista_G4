@@ -57,7 +57,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 usuario.setPassword(null);
             }
             
-            Usuario usuarioViejo = usuarioDao.findByUsername(usuario.getUsername());
+            Usuario usuarioViejo = usuarioDao.getUsuarioByIdUsuario(usuario.getIdUsuario());
             usuarioViejo.setUsername(usuario.getUsername());
             usuarioViejo.setNombre(usuario.getNombre());
             usuarioViejo.setDireccion(usuario.getDireccion());
@@ -75,11 +75,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         usuarioDao.save(usuario);
     }
-    /*
+    
     @Override
     @Transactional
     public void delete(Usuario usuario) {
         usuarioDao.deleteById(usuario.getIdUsuario());
-    } 
-     */
+    }
 }

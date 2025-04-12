@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.G4.AsociacionSolidarista.service.UsuarioService;
 import com.G4.AsociacionSolidarista.service.UsuarioDetailsService;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,13 @@ public class UsuarioController {
         usuario = usuarioService.getUsuario(usuario);
         model.addAttribute("usuario", usuario);
         return "/usuario/modifica";
+    }
+    
+    @PostMapping("/recordarUsuario")
+    public String recordarUsuario(Model model, Usuario usuario) 
+            throws MessagingException {
+        model = usuarioService.recordarUsuario(model, usuario);
+        return "/registro/salida";
     }
 
 }

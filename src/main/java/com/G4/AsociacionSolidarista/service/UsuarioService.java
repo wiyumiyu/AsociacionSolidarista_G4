@@ -3,7 +3,10 @@ package com.G4.AsociacionSolidarista.service;
 
 import java.util.List;
 import com.G4.AsociacionSolidarista.domain.Usuario;
+import jakarta.mail.MessagingException;
+import java.util.Locale;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 public interface UsuarioService {
     
@@ -20,7 +23,13 @@ public interface UsuarioService {
     // Se elimina el usuario que tiene el id pasado por parámetro
     public void delete(Usuario usuario);    
     
+    public Model recordarUsuario(Model model, Usuario usuario) throws MessagingException;
+    
+    public Usuario getUsuarioPorUsername(String usernames);
+    
     //get usuarios por cliente
     //public List<Usuario> getUsuariosByIdUsuario(Long idUsuario);
+    
+
 
 }

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.context.MessageSource;
+import org.springframework.ui.Model;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -27,12 +28,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private RolDao rolDao;
-    
+
     @Autowired
     private MessageSource messageSource;
-    
+
     @Autowired
     private CorreoService correoService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @Override
     @Transactional(readOnly = true)
@@ -148,4 +152,72 @@ public class UsuarioServiceImpl implements UsuarioService {
     public void delete(Usuario usuario) {
         usuarioDao.deleteById(usuario.getIdUsuario());
     }
+
+    private void enviaCorreoRecordar(Usuario usuario, String clave) throws MessagingException {
+        String mensaje = messageSource.getMessage(""
+                + "registro.correo.recordar",
+                null,
+                Locale.getDefault());
+        mensaje = String.format(
+                mensaje, usuario.getNombre(),
+                servidor,
+                usuario.getUsername(), clave);
+        String asunto = messageSource.getMessage(
+                "registro.mensaje.recordar",
+                null, Locale.getDefault());
+        correoService.enviarCorreoHtml(
+                usuario.getUsername(),
+                asunto, mensaje);
+    }
+
+    @Override
+    public Model recordarUsuario(Model model, Usuario usuario)
+            throws MessagingException {
+        String mensaje;
+        Usuario usuario2 = usuarioService.getUsuarioPorUsername(usuario.getUsername());
+        if (usuario2 != null) {
+            String clave = demeClave();
+            usuario2.setPassword(clave);
+            enviaCorreoRecordar(usuario2, clave);
+            mensaje = String.format(
+                    messageSource.getMessage(
+                            "registro.mensaje.recordar.ok",
+                            null,
+                            Locale.getDefault()),
+                    usuario.getUsername());
+        } else {
+            mensaje = String.format(
+                    messageSource.getMessage(
+                            "registro.mensaje.usuario.o.correo",
+                            null,
+                            Locale.getDefault()),
+                    usuario.getUsername());
+        }
+        model.addAttribute(
+                "titulo",
+                messageSource.getMessage(
+                        "registro.activar",
+                        null,
+                        Locale.getDefault()));
+        model.addAttribute(
+                "mensaje",
+                mensaje);
+        return model;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Usuario getUsuarioPorUsername(String username) {
+        return usuarioDao.findByUsername(username);
+    }
+
+    private String demeClave() {
+        String tira = "ABCDEFGHIJKLMNOPQRSTUXYZabcdefghijklmnopqrstuvwxyz0123456789_*+-";
+        String clave = "";
+        for (int i = 0; i < 40; i++) {
+            clave += tira.charAt((int) (Math.random() * tira.length()));
+        }
+        return clave;
+    }
+
 }

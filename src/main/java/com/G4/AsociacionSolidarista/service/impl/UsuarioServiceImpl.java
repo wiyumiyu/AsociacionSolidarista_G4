@@ -153,7 +153,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     private void enviaCorreoRecordar(Usuario usuario, String clave) throws MessagingException {
         String mensaje = messageSource.getMessage(""
-                + "registro.correo.recordar",
+                + "mp.registro.correo.recordar",
                 null,
                 Locale.getDefault());
         mensaje = String.format(
@@ -161,7 +161,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 servidor,
                 usuario.getUsername(), clave);
         String asunto = messageSource.getMessage(
-                "registro.mensaje.recordar",
+                "mp.registro.mensaje.recordar",
                 null, Locale.getDefault());
         correoService.enviarCorreoHtml(
                 usuario.getUsername(),
@@ -179,7 +179,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             enviaCorreoRecordar(usuario2, clave);
             mensaje = String.format(
                     messageSource.getMessage(
-                            "registro.mensaje.recordar.ok",
+                            "mp.registro.mensaje.recordar.ok",
                             null,
                             Locale.getDefault()),
                     usuario.getUsername());

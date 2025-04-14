@@ -65,6 +65,8 @@ public class ProjectConfig implements WebMvcConfigurer {
         registry.addViewController("/ahorro/listado").setViewName("ahorro/listado");
         registry.addViewController("/credito/listado").setViewName("credito/listado");
         registry.addViewController("/recordar").setViewName("recordar");
+        registry.addViewController("/usuario/recordarUsuario").setViewName("/usuario/recordarUsuario");
+        
         //registry.addViewController("/script.js").setViewName("ahorro/listado");
 
     }
@@ -83,7 +85,7 @@ public class ProjectConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests((request) -> request
                 .requestMatchers("/", "/index", "/js/**", "/css/**", "/webjars/**", "/images/**", "/errores/**", "/error",
                         "/ahorro/listado", "/ahorro/historial", "/ahorro/modificar/**",
-                        "/credito/listado", "usuario/guardarPerfil", "/credito/rechazar/**", "/credito/aprobar/**","/recordar"
+                        "/credito/listado", "usuario/guardarPerfil", "/credito/rechazar/**", "/credito/aprobar/**","/recordar" , "/usuario/recordarUsuario"
                 )
                 .permitAll()
                 .requestMatchers(

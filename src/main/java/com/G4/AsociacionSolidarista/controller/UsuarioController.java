@@ -70,7 +70,7 @@ public class UsuarioController {
     public String recordarUsuario(Model model, Usuario usuario) 
             throws MessagingException {
         model = usuarioService.recordarUsuario(model, usuario);
-        return "/registro/salida";
+        return "/salida";
     }
 
 }

@@ -186,7 +186,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         } else {
             mensaje = String.format(
                     messageSource.getMessage(
-                            "registro.mensaje.usuario.o.correo",
+                            "mp.registro.mensaje.usuario.o.correo",
                             null,
                             Locale.getDefault()),
                     usuario.getUsername());
@@ -194,7 +194,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         model.addAttribute(
                 "titulo",
                 messageSource.getMessage(
-                        "registro.activar",
+                        "mp.registro.activar",
                         null,
                         Locale.getDefault()));
         model.addAttribute(

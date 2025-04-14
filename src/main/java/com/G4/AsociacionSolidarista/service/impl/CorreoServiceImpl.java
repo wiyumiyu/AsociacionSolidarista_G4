@@ -13,19 +13,38 @@ public class CorreoServiceImpl implements CorreoService {
 
     @Autowired
     private JavaMailSender mailSender;
+//
+//    @Override
+//    public void enviarCorreoHtml(
+//            String para,
+//            String asunto,
+//            String contenidoHtml
+//            ) throws MessagingException {
+//        MimeMessage message = mailSender.createMimeMessage();
+//        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+//
+//        helper.setTo(para);
+//        helper.setSubject(asunto);
+//        helper.setText(contenidoHtml, true);
+//        mailSender.send(message);
+//    }
 
     @Override
-    public void enviarCorreoHtml(
-            String para,
-            String asunto,
-            String contenidoHtml
-            ) throws MessagingException {
+    public void enviarCorreoHtml(String para, String asunto, String contenidoHtml) throws MessagingException {
+        System.out.println("📬 Enviando correo a: " + para);
+        System.out.println("📨 Asunto: " + asunto);
+        System.out.println("💬 Contenido: " + contenidoHtml);
+
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
         helper.setTo(para);
         helper.setSubject(asunto);
         helper.setText(contenidoHtml, true);
+
         mailSender.send(message);
+
+        System.out.println("✅ Correo enviado correctamente a: " + para);
     }
+
 }

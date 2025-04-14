@@ -35,8 +35,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Autowired
     private CorreoService correoService;
 
-    @Autowired
-    private UsuarioService usuarioService;
 
     @Override
     @Transactional(readOnly = true)
@@ -174,7 +172,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Model recordarUsuario(Model model, Usuario usuario)
             throws MessagingException {
         String mensaje;
-        Usuario usuario2 = usuarioService.getUsuarioPorUsername(usuario.getUsername());
+        Usuario usuario2 = this.getUsuarioPorUsername(usuario.getUsername());
         if (usuario2 != null) {
             String clave = demeClave();
             usuario2.setPassword(clave);

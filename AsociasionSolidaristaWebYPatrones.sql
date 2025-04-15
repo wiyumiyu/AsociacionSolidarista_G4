@@ -123,7 +123,7 @@ CREATE TABLE beneficiario (
 
 insert INTO usuario
 (password, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
-("$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.", "Mariana T.", "", "Femenino", "88223366", "mariana@gmail.com" , "101110222","2000-01-01");
+("$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.", "Mariana T.", "", "Femenino", "88223366", "alecorreo19@gmail.com" , "101110222","2000-01-01");
 insert INTO usuario
 (password, nombre, direccion, genero, telefono, username, cedula, fecha_nacimiento) values 
 ("$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.", "Julio Rodríguez", "", "Masculino", "88223366", "vjuliorc@gmail.com" , "1111111","2000-01-01");

@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/usuario")
@@ -71,6 +74,26 @@ public class UsuarioController {
             throws MessagingException {
         model = usuarioService.recordarUsuario(model, usuario);
         return "/salida";
+    }
+    
+    @GetMapping("/activacion/{usuario}/{id}")
+    public String activar(
+            Model model,
+            @PathVariable(value = "usuario") String usuario,
+            @PathVariable(value = "id") String id) {
+        model = usuarioService.activar(model, usuario, id);
+        if (model.containsAttribute("usuario")) {
+            return "/activa";
+        } else {
+            return "/salida";
+        }
+    }
+
+    @PostMapping("/activar")
+    public String activar(
+            Usuario usuario) {
+        this.activar(usuario);
+        return "redirect:/";
     }
 
 }

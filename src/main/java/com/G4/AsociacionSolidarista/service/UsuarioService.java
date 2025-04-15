@@ -27,6 +27,12 @@ public interface UsuarioService {
     
     public Usuario getUsuarioPorUsername(String usernames);
     
+    public Model activar(Model model, String usuario, String clave);
+    
+    public void activar(Usuario usuario);
+    
+    public Usuario getUsuarioPorUsernameYPassword(String username, String password);
+    
     //get usuarios por cliente
     //public List<Usuario> getUsuariosByIdUsuario(Long idUsuario);
     

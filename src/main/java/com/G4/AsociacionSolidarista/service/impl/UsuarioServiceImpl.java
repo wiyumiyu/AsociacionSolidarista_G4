@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.context.MessageSource;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -208,6 +210,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Usuario getUsuarioPorUsername(String username) {
         return usuarioDao.findByUsername(username);
     }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Usuario getUsuarioPorUsernameYPassword(String username, String password) {
+        return usuarioDao.findByUsernameAndPassword(username, password);
+    }
 
     private String demeClave() {
         String tira = "ABCDEFGHIJKLMNOPQRSTUXYZabcdefghijklmnopqrstuvwxyz0123456789_*+-";
@@ -217,5 +225,34 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         return clave;
     }
+  
+    @Override
+    public Model activar(Model model, String username, String clave) {
+        Usuario usuario
+                = this.getUsuarioPorUsernameYPassword(username,
+                        clave);
+        if (usuario != null) {
+            model.addAttribute("usuario", usuario);
+        } else {
+            model.addAttribute(
+                    "titulo",
+                    messageSource.getMessage(
+                            "mp.registro.activar",
+                            null, Locale.getDefault()));
+            model.addAttribute(
+                    "mensaje",
+                    messageSource.getMessage(
+                            "mp.registro.activar.error",
+                            null, Locale.getDefault()));
+        }
+        return model;
+    }
+    
+         @Override
+     public void activar(Usuario usuario) {
+         var codigo = new BCryptPasswordEncoder();
+         usuario.setPassword(codigo.encode(usuario.getPassword()));
+         this.save(usuario, true);
+     }
 
 }

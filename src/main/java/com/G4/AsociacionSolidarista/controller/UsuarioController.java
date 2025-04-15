@@ -81,6 +81,7 @@ public class UsuarioController {
             Model model,
             @PathVariable(value = "usuario") String usuario,
             @PathVariable(value = "id") String id) {
+        System.out.println(usuario + "xxxxxx" + id);
         model = usuarioService.activar(model, usuario, id);
         if (model.containsAttribute("usuario")) {
             return "/activa";

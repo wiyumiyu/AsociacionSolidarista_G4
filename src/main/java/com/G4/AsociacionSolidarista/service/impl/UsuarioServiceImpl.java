@@ -7,6 +7,7 @@ import com.G4.AsociacionSolidarista.domain.Usuario;
 import com.G4.AsociacionSolidarista.service.CorreoService;
 import com.G4.AsociacionSolidarista.service.UsuarioService;
 import jakarta.mail.MessagingException;
+import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
@@ -154,19 +155,27 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     private void enviaCorreoRecordar(Usuario usuario, String clave) throws MessagingException {
+        
+        String nombreusuario = usuario.getUsername();
+//        System.out.println(nombreusuario);
+//        try{
+//            nombreusuario = URLEncoder.encode( nombreusuario, "UTF-8") ;
+//            
+//        }catch(Exception e){}
+        
         String mensaje = messageSource.getMessage(""
                 + "mp.registro.correo.recordar",
                 null,
                 Locale.getDefault());
         mensaje = String.format(
-                mensaje, usuario.getNombre(),
+                mensaje, usuario.getUsername(),
                 servidor,
-                usuario.getUsername(), clave);
+                nombreusuario, clave);
         String asunto = messageSource.getMessage(
                 "mp.registro.mensaje.recordar",
                 null, Locale.getDefault());
         correoService.enviarCorreoHtml(
-                usuario.getUsername(),
+               usuario.getUsername(),
                 asunto, mensaje);
     }
 
@@ -178,6 +187,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (usuario2 != null) {
             String clave = demeClave();
             usuario2.setPassword(clave);
+            this.save(usuario2, false);
             enviaCorreoRecordar(usuario2, clave);
             mensaje = String.format(
                     messageSource.getMessage(
@@ -228,9 +238,14 @@ public class UsuarioServiceImpl implements UsuarioService {
   
     @Override
     public Model activar(Model model, String username, String clave) {
+        
+        
+        
         Usuario usuario
-                = this.getUsuarioPorUsernameYPassword(username,
-                        clave);
+                = this.getUsuarioPorUsername(username);
+        
+        
+        
         if (usuario != null) {
             model.addAttribute("usuario", usuario);
         } else {

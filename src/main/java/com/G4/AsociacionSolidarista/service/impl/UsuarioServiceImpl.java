@@ -265,9 +265,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     
          @Override
      public void activar(Usuario usuario) {
-         var codigo = new BCryptPasswordEncoder();
-         usuario.setPassword(codigo.encode(usuario.getPassword()));
-         this.save(usuario, true);
+         
+         System.out.println(usuario.getUsername() + ":p 000000000000000000000000/ " + usuario.getPassword());
+        // var codigo = new BCryptPasswordEncoder();
+         //usuario.setPassword(codigo.encode(usuario.getPassword()));
+         this.save(usuario, false);
      }
 
 }

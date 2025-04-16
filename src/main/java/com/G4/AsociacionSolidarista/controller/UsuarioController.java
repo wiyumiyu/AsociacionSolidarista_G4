@@ -92,7 +92,7 @@ public class UsuarioController {
     @PostMapping("/activar")
     public String activar(
             Usuario usuario) {
-        System.out.println(usuario.getUsername() + ":p");
+        
         usuarioService.activar(usuario);
         return "redirect:/";
     }

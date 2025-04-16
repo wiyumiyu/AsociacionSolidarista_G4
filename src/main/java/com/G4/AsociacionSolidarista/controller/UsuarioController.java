@@ -81,7 +81,6 @@ public class UsuarioController {
             Model model,
             @PathVariable(value = "usuario") String usuario,
             @PathVariable(value = "id") String id) {
-        System.out.println(usuario + "xxxxxx" + id);
         model = usuarioService.activar(model, usuario, id);
         if (model.containsAttribute("usuario")) {
             return "/activa";
@@ -93,7 +92,8 @@ public class UsuarioController {
     @PostMapping("/activar")
     public String activar(
             Usuario usuario) {
-        this.activar(usuario);
+        System.out.println(usuario.getUsername() + ":p");
+        usuarioService.activar(usuario);
         return "redirect:/";
     }
 

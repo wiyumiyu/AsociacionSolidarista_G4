@@ -2,8 +2,7 @@
 - 🧾 [Historias de Usuario](https://docs.google.com/document/d/16tZwY2YHayyc15sArZN8-ACBU6v6OuYZb20QBKkI6f0/edit?usp=sharing)
 - 🎨 [Prototipo en Figma](https://www.figma.com/design/AwjEqAOAA9pFFNxs4wHN8L/Prototipo-Asociaci%C3%B3n?node-id=2584-6672&t=L1p9asQbhhT8YFev-1)
 
-![Cronograma Actividades SC403 - Gantt Chart_page-0001](https://github.com/user-attachments/assets/51def147-7627-4ad1-b596-b863a64e3ac7)
-
+![Cronograma Actividades SC403 - Gantt Chart_page-0001 (1)](https://github.com/user-attachments/assets/57e2f576-1f78-4a58-8574-c175d146fbbc)
  
 ![G4_SC403_KN_ProyectoFinalAsociación (1)-1](https://github.com/user-attachments/assets/c4bedfb4-a567-4c69-a52b-8487b708f685)
 ![G4_SC403_KN_ProyectoFinalAsociación (1)-2](https://github.com/user-attachments/assets/000cb947-42dc-4b93-83e8-25466f8444b4)
